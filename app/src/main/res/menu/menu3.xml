@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/barmostrarcreditos"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_creditos"
+        android:title="@string/creditos" />
+
+    <item
+        android:id="@+id/bartopfind"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_find"
+        android:title="@string/consultar" />
+
+    <item
+        android:id="@+id/bartopeliminar"
+        android:icon="@drawable/ic_delete"
+        app:showAsAction="always"
+        android:title="@string/eliminar"/>
+</menu>

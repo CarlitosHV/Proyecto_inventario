@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Productos</string>
+    <string name="label_login">Iniciar sesión</string>
+    <string name="usuario">Escribe tu usuario</string>
+    <string name="contrasena">Escribe tu contraseña</string>
+    <string name="iniciar">Ingresar</string>
+    //Fragments
+    <string name="scroll">Scroll</string>
+    <string name="anadir">Agregar producto</string>
+    <string name="modificar">Modificar producto</string>
+    <string name="consultar">Consultar producto</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="inactivar">Inactivar</string>
+    <string name="listar">Listar activos</string>
+    <string name="listarina">Listar inactivos</string>
+    <string name="creditos">Créditos</string>
+    <string name="fragmentagregar">Añadir fragment</string>
+    <string name="fragmentlistaractivos">Listar activos fragment</string>
+    <string name="fragmentlistarinactivos">Listar inactivos fragment</string>
+    <string name="agregaprod">Agregar producto</string>
+    <string name="idprod">Agregar ID del producto</string>
+    <string name="idprodbuscar">Buscar ID</string>
+    <string name="botonbuscar">Buscar</string>
+    <string name="nombreprod">Nombre producto</string>
+    <string name="categoriaprod">Categoría producto</string>
+    <string name="imagenprod">Imagen del producto</string>
+    <string name="descripcionprod">Describe el producto</string>
+    <string name="fotoprod">Tomar foto del producto</string>
+    <string name="guardarprod">Guardar</string>
+    <string name="modificarprod">Modificar</string>
+    <string name="inicio">Inicio</string>
+    <string name="headervideo">Video descriptivo</string>
+    <string name="textvideo">Este video explica el funcionamiento de la app</string>
+    <string name="labelprod">Producto</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

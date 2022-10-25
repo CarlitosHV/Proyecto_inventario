@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment_modificar">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbarmodificar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/colorPrimaryVariant"
+                    app:title="@string/modificar"
+                    app:menu="@menu/menu3"/>
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivFotoprodmodificar"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="30dp"
+                android:contentDescription="@string/imagenprod"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginStart="25dp"
+                    app:endIconMode="clear_text"
+                    app:startIconContentDescription="@string/idprodbuscar"
+                    app:startIconDrawable="@drawable/ic_id">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/idprodmodificar"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:hint="@string/idprodbuscar"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/btnmodificarbuscar"
+                    style="@style/Widget.Material3.Button.Icon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_gravity="center"
+                    android:text="@string/botonbuscar"
+                    android:textSize="20sp"
+                    app:icon="@drawable/ic_find" />
+
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                app:endIconMode="clear_text"
+                app:startIconContentDescription="@string/nombreprod"
+                app:startIconDrawable="@drawable/ic_productoname">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nombreprodmodificar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/nombreprod"
+                    tools:layout_editor_absoluteX="16dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                app:endIconMode="clear_text"
+                app:startIconContentDescription="@string/categoriaprod"
+                app:startIconDrawable="@drawable/ic_catprod">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/categoriaprodmodificar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/categoriaprod"
+                    tools:layout_editor_absoluteX="16dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                app:endIconMode="clear_text"
+                app:startIconContentDescription="@string/descripcionprod"
+                app:startIconDrawable="@drawable/ic_descriptionprod">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/descriptionprodmodificar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/descripcionprod"
+                    android:maxLines="5"
+                    android:lines="1"
+                    tools:layout_editor_absoluteX="16dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btntomarfotomodificar"
+                style="@style/Widget.Material3.Button.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/fotoprod"
+                android:textSize="20sp"
+                app:icon="@drawable/ic_save" />
+
+            <Button
+                android:id="@+id/btnguardarmodificar"
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:text="@string/modificar"
+                android:textSize="20sp"
+                app:icon="@drawable/ic_save" />
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

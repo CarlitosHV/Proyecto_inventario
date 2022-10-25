@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/barhome"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:title="@string/inicio"/>
+
+    <item
+        android:id="@+id/barAnadir"
+        android:enabled="true"
+        android:icon="@drawable/ic_add"
+        android:title="@string/anadir" />
+
+    <item
+        android:id="@+id/barModify"
+        android:enabled="true"
+        android:icon="@drawable/ic_edit"
+        android:title="@string/modificar" />
+
+    <item
+        android:id="@+id/barmostraractivos"
+        android:enabled="true"
+        android:icon="@drawable/ic_listaractivos"
+        android:title="@string/listar" />
+
+    <item
+        android:id="@+id/barmostrarinactivos"
+        android:enabled="true"
+        android:icon="@drawable/ic_listarinactivos"
+        android:title="@string/listarina" />
+</menu>

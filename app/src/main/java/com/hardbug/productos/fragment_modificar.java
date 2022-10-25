@@ -106,8 +106,8 @@ public class fragment_modificar extends Fragment {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.barmostrarcreditos:
-                        new AlertDialog.Builder(getContext()).setTitle("Acerca de").setMessage("" + "Carlos Alberto Hernández Velázquez \n"
-                                + "Profesora: Rocío Elizabeth Pulido Alba\n" + "Programación Android :D \n" + "Aplicación Material Design + SQLite\n" + "Versión 2.1").setPositiveButton("Aceptar", null).show();
+                        new AlertDialog.Builder(getContext()).setTitle("Acerca de").setMessage("" + "Carlos Alberto Hernández Velázquez \n"+
+                                "Gerardo Pastrana Gómez \n" + "Profesora: Rocío Elizabeth Pulido Alba\n" + "Programación Android :D \n" + "Aplicación Material Design + SQLite\n" + "Versión 2.1").setPositiveButton("Aceptar", null).show();
                         return true;
 
                     case R.id.bartopfind:

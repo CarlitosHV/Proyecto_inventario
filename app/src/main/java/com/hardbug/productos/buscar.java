@@ -24,6 +24,8 @@ import com.hardbug.productos.bd.SQLITE;
  * A simple {@link Fragment} subclass.
  * Use the {@link buscar#newInstance} factory method to
  * create an instance of this fragment.
+ *
+ *
  */
 public class buscar extends Fragment {
 

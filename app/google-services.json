@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "853873872133",
+    "project_id": "proyectoinventario-bdd6f",
+    "storage_bucket": "proyectoinventario-bdd6f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:853873872133:android:7013dc5babd0514218bb6c",
+        "android_client_info": {
+          "package_name": "com.hardbug.productos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "853873872133-7eu234jp4vpdq26vm4rai64v5ki3gr08.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hardbug.productos",
+            "certificate_hash": "18a6c516a3880df298aacf09a63ce6b8902544e9"
+          }
+        },
+        {
+          "client_id": "853873872133-ttitq68uqt2h1ji87vk22t665b5eusrs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjT6LwgyWw0N9ayI7BbANfVEmoAkyuWTg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "853873872133-ttitq68uqt2h1ji87vk22t665b5eusrs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
             if (usuario.getText().toString().equals("") || contrasenia.getText().toString().equals("")){
                 Toast.makeText(this, "Ingresa la información", Toast.LENGTH_SHORT).show();
             }else{
-                if (usuario.getText().toString().equals("Carlos") && contrasenia.getText().toString().equals("DM2mp")){
+                if (usuario.getText().toString().equals("a") && contrasenia.getText().toString().equals("a")){
                     Intent intent = new Intent(view.getContext(), fragment_principal.class);
                     startActivity(intent);
                 }

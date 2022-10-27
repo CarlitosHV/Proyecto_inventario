@@ -29,7 +29,7 @@
     <string name="guardarprod">Guardar</string>
     <string name="modificarprod">Modificar</string>
     <string name="inicio">Inicio</string>
-    <string name="headervideo">Video descriptivo</string>
+    <string name="headervideo">Inicio</string>
     <string name="textvideo">Este video explica el funcionamiento de la app</string>
     <string name="labelprod">Producto</string>
     <!-- TODO: Remove or change this placeholder text -->

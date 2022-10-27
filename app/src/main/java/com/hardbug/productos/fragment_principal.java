@@ -61,6 +61,7 @@ public class fragment_principal extends AppCompatActivity {
                     case R.id.barmostrarinactivos:
                         listarinactivos Listarinactivos = new listarinactivos();
                         abrirfragments(Listarinactivos);
+                        return true;
                 }
                 return false;
             }

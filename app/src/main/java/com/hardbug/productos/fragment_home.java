@@ -65,7 +65,7 @@ public class fragment_home extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        videoView = root.findViewById(R.id.tv);
+
         // toolbar
         toolbar = root.findViewById(R.id.toolbarhome);
         toolbar.setNavigationIcon(R.drawable.ic_back);
@@ -74,11 +74,7 @@ public class fragment_home extends Fragment {
             startActivity(intent);
         });
 
-        String url = "android.resource://" + getActivity().getPackageName() + "/" + R.raw.explicacionapp;
-        videoView.setVideoPath(url);
-        MediaController mediaController = new MediaController(getContext());
-        videoView.setMediaController(mediaController);
-        mediaController.setAnchorView(videoView);
+
         return root;
     }
 

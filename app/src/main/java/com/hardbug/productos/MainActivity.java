@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             if (usuario.getText().toString().equals("") || contrasenia.getText().toString().equals("")){
                 Toast.makeText(this, "Ingresa la información", Toast.LENGTH_SHORT).show();
             }else{
-                mAuth.signInWithEmailAndPassword(usuario.getText().toString(), contrasenia.getText().toString())
+                mAuth.signInWithEmailAndPassword(usuario.getText().toString().trim(), contrasenia.getText().toString())
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {

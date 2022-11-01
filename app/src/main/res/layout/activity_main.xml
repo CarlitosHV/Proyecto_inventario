@@ -80,12 +80,25 @@
         tools:layout_editor_absoluteX="16dp">
 
         <Button
-            android:id="@+id/btnlog"
+            android:id="@+id/btnregistro"
             style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="60dp"
+            android:text="@string/registrar"
+            android:textSize="20sp"
+            app:icon="@drawable/ic_btnicon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+        <Button
+            android:id="@+id/btnlog"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
             android:text="@string/iniciar"
             android:textSize="20sp"
             app:icon="@drawable/ic_btnicon"

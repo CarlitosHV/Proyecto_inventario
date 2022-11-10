@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menuusercategorias"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_prestamos"
+        android:title="@string/usuarioprestamos"/>
+
+    <item
+        android:id="@+id/menuusuariosolicitudes"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_solicitudes"
+        android:title="@string/usuariosolicitudes" />
+
+    <item
+        android:id="@+id/menuusuarioconfiguracion"
+        android:icon="@drawable/ic_configuracion"
+        app:showAsAction="always"
+        android:title="@string/usuarioconfiguracion"/>
+
+
+</menu>

@@ -47,5 +47,15 @@
     <string name="nombre_usuarios"> Usuario </string>
     <string name="boton_confirmar"> Confirmar </string>
     <string name="boton_cancelar"> Cancelar </string>
-
+    //Strings para menú de usuario
+    <string name="usuarioprestamos"> Préstamos </string>
+    <string name="usuariosolicitudes"> Solicitudes </string>
+    <string name="usuarioconfiguracion"> Configuración </string>
+    //Strings para el fragment de configuración
+    <string name="configuracionNombre"> Ingresa el nuevo nombre </string>
+    <string name="configuracionCorreo"> Ingresa el correo </string>
+    <string name="configuracionPassword"> Ingresa la contraseña </string>
+    <string name="configuracionConfirmarPass"> Confirma la contraseña </string>
+    <string name="configuracionAceptar"> Aceptar </string>
+    <string name="configuracionCancelar"> Cancelar </string>
 </resources>

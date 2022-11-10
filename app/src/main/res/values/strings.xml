@@ -37,5 +37,15 @@
     <string name="registrar">Nuevo Usuario</string>
     <string name="imagenusuario" />
     <string name="confirmarcontrasena">Confirmar contraseña</string>
+    //Strings para el menú del administrador
+    <string name="admincategorias"> Categorías </string>
+    <string name="adminusuarios"> Usuarios </string>
+    <string name="adminregistros"> Registros </string>
+    <string name="adminsolicitudes"> Solicitudes </string>
+    <string name="adminconfiguracion"> Configuración </string>
+    //Strings para el cardview de usuarios
+    <string name="nombre_usuarios"> Usuario </string>
+    <string name="boton_confirmar"> Confirmar </string>
+    <string name="boton_cancelar"> Cancelar </string>
 
 </resources>

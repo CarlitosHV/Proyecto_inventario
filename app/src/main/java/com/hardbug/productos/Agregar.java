@@ -2,15 +2,20 @@ package com.hardbug.productos;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -47,6 +52,7 @@ public class Agregar extends Fragment implements View.OnClickListener, AdapterVi
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final int PERMISO_CAMARA = 5;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -90,6 +96,9 @@ public class Agregar extends Fragment implements View.OnClickListener, AdapterVi
         cuadrostexto(root);
         botonesimg(root);
         sqlite = new SQLITE(getContext());
+
+        int permissionCheck = ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.CAMERA);
 
         toolbar = root.findViewById(R.id.toolbaragregarprod);
         toolbar.setNavigationIcon(R.drawable.ic_back);
@@ -183,6 +192,7 @@ public class Agregar extends Fragment implements View.OnClickListener, AdapterVi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btntomarfoto:
+                PedirPermisoCamara();
                 abrirCamara();
                 break;
             case R.id.btnguardar:
@@ -225,7 +235,6 @@ public class Agregar extends Fragment implements View.OnClickListener, AdapterVi
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -233,7 +242,7 @@ public class Agregar extends Fragment implements View.OnClickListener, AdapterVi
                 new AlertDialog.Builder(getContext()).setTitle("Acerca de").setMessage("" + "Carlos Alberto Hernández Velázquez \n"
                         + "Profesora: Rocío Elizabeth Pulido Alba\n" + "Programación Android :D \n" + "Aplicación Material Design + SQLite\n" + "Versión 2.1").setPositiveButton("Aceptar", null).show();
 
-            return true;
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -243,5 +252,32 @@ public class Agregar extends Fragment implements View.OnClickListener, AdapterVi
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    private void PedirPermisoCamara() {
+        //Comprobación 'Racional'
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                Manifest.permission.CAMERA)) {
+            AlertDialog AD;
+            AlertDialog.Builder ADBuilder = new AlertDialog.Builder(getContext());
+            ADBuilder.setMessage("Para capturar imagen del producto es necesario utilizar la cámara de tu dispositivo. Permite que HardBug pueda acceder a la cámara.");
+            ADBuilder.setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //Solicitamos permisos
+                    ActivityCompat.requestPermissions(
+                            getActivity(),
+                            new String[]{Manifest.permission.CAMERA},
+                            PERMISO_CAMARA);
+                }
+            });
+            AD = ADBuilder.create();
+            AD.show();
+        } else {
+            ActivityCompat.requestPermissions(
+                    getActivity(),
+                    new String[]{Manifest.permission.CAMERA},
+                    PERMISO_CAMARA);
+        }
     }
 }

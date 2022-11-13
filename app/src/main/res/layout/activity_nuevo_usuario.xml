@@ -1,32 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".nuevo_usuario">
+    tools:context=".NuevoUsuario">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <com.google.android.material.appbar.AppBarLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp">
-                <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/toolbarconsultar"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="?attr/colorPrimaryVariant"
-                    app:title="@string/consultar"/>
-
-            </com.google.android.material.appbar.AppBarLayout>
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="200dp"
@@ -57,13 +44,12 @@
                 app:startIconDrawable="@drawable/ic_search">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/campousuario"
+                    android:id="@+id/campousuarioNU"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/usuario"
+                    android:inputType="textEmailAddress"
                     app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -79,17 +65,14 @@
                 app:startIconContentDescription="@string/contrasena"
                 app:startIconDrawable="@drawable/ic_password"
                 tools:layout_editor_absoluteX="2dp">
-
-
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/contra"
+                    android:id="@+id/contraNU"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="56dp"
                     android:hint="@string/contrasena"
                     android:inputType="textPassword"
                     app:layout_constraintTop_toTopOf="@+id/textInputLayout"/>
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -105,21 +88,19 @@
                 app:startIconDrawable="@drawable/ic_password"
                 tools:layout_editor_absoluteX="2dp">
 
-
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/confirmarcontrasenia"
+                    android:id="@+id/confirmarcontraseniaNU"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="56dp"
                     android:hint="@string/confirmarcontrasena"
                     android:inputType="textPassword"
                     app:layout_constraintTop_toTopOf="@+id/textInputLayout"/>
-
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <Button
-                android:id="@+id/btnregistro"
+                android:id="@+id/btnregistroNU"
                 style="@style/Widget.Material3.Button.ElevatedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -130,16 +111,7 @@
                 app:icon="@drawable/ic_btnicon"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
-
         </LinearLayout>
-
-
-
-
-
-
     </ScrollView>
 
-
-
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

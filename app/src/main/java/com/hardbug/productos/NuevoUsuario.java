@@ -32,11 +32,11 @@ public class NuevoUsuario extends AppCompatActivity {
     private static final String TAG = "EmailPassword";
     private FirebaseAuth mAuth;
 
-    FirebaseDatabase firebaseDB;
-    DatabaseReference dbReference;
-    FirebaseFirestore firestore;
+    private FirebaseDatabase firebaseDB;
+    private FirebaseFirestore firestore;
 
     private com.google.android.material.textfield.TextInputEditText usuario;
+    private com.google.android.material.textfield.TextInputEditText name;
     private com.google.android.material.textfield.TextInputEditText contra;
     private com.google.android.material.textfield.TextInputEditText confirmarcontrasenia;
     private Button btnregistro;
@@ -51,6 +51,7 @@ public class NuevoUsuario extends AppCompatActivity {
         usuario = findViewById(R.id.campousuarioNU);
         contra = findViewById(R.id.contraNU);
         confirmarcontrasenia = findViewById(R.id.confirmarcontraseniaNU);
+        name = findViewById(R.id.usuarioNU);
         btnregistro = findViewById(R.id.btnregistroNU);
 
         btnregistro.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +78,7 @@ public class NuevoUsuario extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            UserType usuarioNuevo = new UserType(usuario.getText().toString(), false, user.getUid());
+                            UserType usuarioNuevo = new UserType(usuario.getText().toString(), false, user.getUid(), name.getText().toString());
                             nuevoUsuario(usuarioNuevo);
                             Toast.makeText(NuevoUsuario.this, "Registro Exitoso",
                                     Toast.LENGTH_SHORT).show();
@@ -116,7 +117,6 @@ public class NuevoUsuario extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
         firebaseDB = FirebaseDatabase.getInstance();
-        dbReference = firebaseDB.getReference();
         firestore = FirebaseFirestore.getInstance();
     }
 }

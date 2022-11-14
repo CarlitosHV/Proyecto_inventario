@@ -3,13 +3,13 @@ package com.hardbug.productos.model;
 public class UserType {
 
     private String email;
-    private String tipo;
+    private boolean tipo;
     private String ID;
 
     public UserType() {
     }
 
-    public UserType(String email, String tipo, String ID) {
+    public UserType(String email, boolean tipo, String ID) {
         this.setEmail(email);
         this.setTipo(tipo);
         this.setID(ID);
@@ -24,11 +24,11 @@ public class UserType {
         this.email = email;
     }
 
-    public String getTipo() {
+    public boolean isTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(boolean tipo) {
         this.tipo = tipo;
     }
 

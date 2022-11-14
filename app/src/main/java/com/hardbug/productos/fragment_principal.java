@@ -32,13 +32,15 @@ public class fragment_principal extends AppCompatActivity {
 
         if (prueba){
             bottomNavigationView.inflateMenu(R.menu.menu_admin);
+            //Fragment que siempre va a cargar en pantalla principal
+            fragment_categorias cate = new fragment_categorias();
+            abrirfragments(cate);
         }else{
             bottomNavigationView.inflateMenu(R.menu.menu_usuario);
+
         }
 
-        //Fragment que siempre va a cargar en pantalla principal
-        fragment_categorias cate = new fragment_categorias();
-        abrirfragments(cate);
+
 
 
         bottomNavigationView.setOnItemSelectedListener(item -> {

@@ -1,5 +1,6 @@
 package com.hardbug.productos;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.material.appbar.MaterialToolbar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +22,8 @@ public class fragment_categorias extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    MaterialToolbar toolbar;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -60,6 +65,12 @@ public class fragment_categorias extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_categorias, container, false);
 
+        toolbar = root.findViewById(R.id.toolbarcateprods);
+        toolbar.setNavigationIcon(R.drawable.ic_back);
+        toolbar.setNavigationOnClickListener(view -> {
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            startActivity(intent);
+        });
 
         return root;
     }

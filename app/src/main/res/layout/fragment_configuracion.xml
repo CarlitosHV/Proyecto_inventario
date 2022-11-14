@@ -1,132 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment_configuracion">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"/>
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            app:endIconMode="clear_text"
-            app:startIconContentDescription="@string/configuracionNombre"
-            app:startIconDrawable="@drawable/ic_usuarios">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/nombre_cliente"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/configuracionNombre"
-                android:inputType="textPersonName"
-                tools:layout_editor_absoluteX="16dp"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            app:endIconMode="clear_text"
-            app:startIconContentDescription="@string/configuracionNombre"
-            app:startIconDrawable="@drawable/ic_correo">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/correo_cliente"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/configuracionCorreo"
-                android:inputType="textEmailAddress"
-                tools:layout_editor_absoluteX="16dp"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            app:endIconMode="password_toggle"
-            app:startIconContentDescription="@string/configuracionPassword"
-            app:startIconDrawable="@drawable/ic_password">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/password_cliente"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/configuracionCorreo"
-                android:inputType="textPassword"
-                tools:layout_editor_absoluteX="16dp"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            app:endIconMode="password_toggle"
-            app:startIconContentDescription="@string/configuracionConfirmarPass"
-            app:startIconDrawable="@drawable/ic_password">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/confirmarpassword_cliente"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/configuracionConfirmarPass"
-                android:inputType="textPassword"
-                tools:layout_editor_absoluteX="16dp"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btnconfiguracionAceptar"
-                style="@style/Widget.Material3.Button.ElevatedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:layout_marginStart="30dp"
-                android:text="@string/configuracionAceptar"
-                android:textSize="20sp"
-                app:icon="@drawable/ic_ok"/>
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
 
-            <Button
-                android:id="@+id/btnconfiguracionCancelar"
-                style="@style/Widget.Material3.Button.ElevatedButton"
-                android:layout_width="wrap_content"
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbarconfiguracion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/colorPrimaryVariant"
+                    app:title="@string/configuracion"/>
+            </com.google.android.material.appbar.AppBarLayout>
+
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
                 android:layout_marginStart="25dp"
-                android:text="@string/configuracionCancelar"
-                android:textSize="20sp"
-                app:icon="@drawable/ic_cancela"/>
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="25dp"
+                app:endIconMode="clear_text"
+                app:startIconContentDescription="@string/configuracionNombre"
+                app:startIconDrawable="@drawable/ic_usuarios">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nombre_cliente"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/configuracionNombre"
+                    android:inputType="textPersonName"
+                    tools:layout_editor_absoluteX="16dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="25dp"
+                app:endIconMode="clear_text"
+                app:startIconContentDescription="@string/configuracionNombre"
+                app:startIconDrawable="@drawable/ic_correo">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/correo_cliente"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/configuracionCorreo"
+                    android:inputType="textEmailAddress"
+                    tools:layout_editor_absoluteX="16dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="25dp"
+                app:endIconMode="password_toggle"
+                app:startIconContentDescription="@string/configuracionPassword"
+                app:startIconDrawable="@drawable/ic_password">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password_cliente"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/configuracionCorreo"
+                    android:inputType="textPassword"
+                    tools:layout_editor_absoluteX="16dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="25dp"
+                app:endIconMode="password_toggle"
+                app:startIconContentDescription="@string/configuracionConfirmarPass"
+                app:startIconDrawable="@drawable/ic_password">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/confirmarpassword_cliente"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/configuracionConfirmarPass"
+                    android:inputType="textPassword"
+                    tools:layout_editor_absoluteX="16dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnconfiguracionAceptar"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/configuracionAceptar"
+                    android:textSize="20sp"
+                    app:icon="@drawable/ic_ok" />
+
+                <Button
+                    android:id="@+id/btnconfiguracionCancelar"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/configuracionCancelar"
+                    android:textSize="20sp"
+                    app:icon="@drawable/ic_cancela" />
+            </LinearLayout>
+
         </LinearLayout>
 
-    </LinearLayout>
+
+    </ScrollView>
 
 </FrameLayout>

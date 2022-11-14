@@ -3,54 +3,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment_registros">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/btnActivos"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_marginStart="70dp"
-                android:layout_marginTop="25dp"
-                android:background="@drawable/ic_activos" />
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
 
-            <ImageButton
-                android:id="@+id/btnInactivos"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_marginStart="120dp"
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbarregistros"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/colorPrimaryVariant"
+                    app:title="@string/registros"/>
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnActivos"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginTop="25dp"
+                    android:background="@drawable/ic_activos" />
+
+                <ImageButton
+                    android:id="@+id/btnInactivos"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_marginStart="120dp"
+                    android:layout_marginTop="25dp"
+                    android:background="@drawable/ic_inactivos" />
+
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/custom_list_view_registros"
+                android:layout_width="match_parent"
+                android:layout_height="550dp"
                 android:layout_marginTop="25dp"
-                android:background="@drawable/ic_inactivos" />
+                android:layout_marginBottom="50dp"
+                android:dividerHeight="2dp" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/botonanadir_registros"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="330dp"
+                android:layout_marginBottom="5dp"
+                android:contentDescription="@string/nombre_producto" />
+
 
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/custom_list_view_registros"
-            android:layout_width="match_parent"
-            android:layout_height="550dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="50dp"
-            android:dividerHeight="2dp" />
+    </ScrollView>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/botonanadir_registros"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="330dp"
-            android:layout_marginBottom="5dp"
-            android:contentDescription="@string/nombre_producto" />
-
-
-    </LinearLayout>
 
 </FrameLayout>

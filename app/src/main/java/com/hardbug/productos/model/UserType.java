@@ -5,14 +5,16 @@ public class UserType {
     private String email;
     private boolean tipo;
     private String ID;
+    private String name;
 
     public UserType() {
     }
 
-    public UserType(String email, boolean tipo, String ID) {
+    public UserType(String email, boolean tipo, String ID, String name) {
         this.setEmail(email);
         this.setTipo(tipo);
         this.setID(ID);
+        this.setName(name);
     }
 
 
@@ -38,5 +40,13 @@ public class UserType {
 
     public void setID(String ID) {
         this.ID = ID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

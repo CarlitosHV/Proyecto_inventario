@@ -17,9 +17,17 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.hardbug.productos.model.UserType;
+
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +36,11 @@ public class MainActivity extends AppCompatActivity {
     EditText usuario, contrasenia;
     TextView olvidasteContra;
     private FirebaseAuth mAuth;
+
+    public static UserType UserSys;
+
+    private FirebaseDatabase firebaseDB;
+    private FirebaseFirestore firestore;
 
     @Override
     public void onStart() {
@@ -47,8 +60,13 @@ public class MainActivity extends AppCompatActivity {
         login = findViewById(R.id.btnlog);
         usuario = findViewById(R.id.campousuario);
         contrasenia = findViewById(R.id.campocontra);
+<<<<<<< HEAD
         mAuth = FirebaseAuth.getInstance();
         olvidasteContra = findViewById(R.id.btnOlvidePass);
+=======
+
+        iniciarFireBase();
+>>>>>>> 5ad061e3c62a84cb61cbc9cdefc0b54b7a3dd10c
 
         btnNuevoUsuario = findViewById(R.id.btnNuevoUsuario);
 
@@ -78,11 +96,8 @@ public class MainActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
-                                    Toast.makeText(getBaseContext(), "Bienvenido",
-                                            Toast.LENGTH_SHORT).show();
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    Intent intent = new Intent(view.getContext(), fragment_principal.class);
-                                    startActivity(intent);
+                                    LLamarUsuario(user.getUid());
                                     //updateUI(user);
                                 } else {
                                     // If sign in fails, display a message to the user.
@@ -97,5 +112,37 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+    private void LLamarUsuario(String id){
+        firestore.collection("UsersType")
+                .whereEqualTo("id", id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for (QueryDocumentSnapshot document : task.getResult()){
+                                Map<String, Object> obj = document.getData();
+                                MainActivity.UserSys = new UserType();
+                                MainActivity.UserSys.setEmail(obj.get("email").toString());
+                                MainActivity.UserSys.setID(obj.get("id").toString());
+                                MainActivity.UserSys.setTipo((Boolean) obj.get("tipo"));
+                                MainActivity.UserSys.setName(obj.get("name").toString());
+                            }
+                        }
+                        if( MainActivity.UserSys != null ){
+                            Intent intent = new Intent(MainActivity.this, fragment_principal.class);
+                            startActivity(intent);
+                        }
+                    }
+                });
+    }
+
+    private void iniciarFireBase(){
+        FirebaseApp.initializeApp(this);
+        mAuth = FirebaseAuth.getInstance();
+        firebaseDB = FirebaseDatabase.getInstance();
+        firestore = FirebaseFirestore.getInstance();
+    }
 
 }

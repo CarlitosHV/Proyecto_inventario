@@ -21,6 +21,10 @@ public class fragment_principal extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     Boolean prueba = true;
 
+    protected void onStart() {
+        Toast.makeText(this, MainActivity.UserSys.getEmail() + " bienvenido", Toast.LENGTH_SHORT).show();
+        super.onStart();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

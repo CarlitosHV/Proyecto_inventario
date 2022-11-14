@@ -32,9 +32,8 @@ public class NuevoUsuario extends AppCompatActivity {
     private static final String TAG = "EmailPassword";
     private FirebaseAuth mAuth;
 
-    FirebaseDatabase firebaseDB;
-    DatabaseReference dbReference;
-    FirebaseFirestore firestore;
+    private FirebaseDatabase firebaseDB;
+    private FirebaseFirestore firestore;
 
     private com.google.android.material.textfield.TextInputEditText usuario;
     private com.google.android.material.textfield.TextInputEditText contra;
@@ -116,7 +115,6 @@ public class NuevoUsuario extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
         firebaseDB = FirebaseDatabase.getInstance();
-        dbReference = firebaseDB.getReference();
         firestore = FirebaseFirestore.getInstance();
     }
 }

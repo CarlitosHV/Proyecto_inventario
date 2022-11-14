@@ -3,7 +3,7 @@
     <string name="label_login">Iniciar sesión</string>
     <string name="usuario">Escribe tu usuario</string>
     <string name="contrasena">Escribe tu contraseña</string>
-    <string name="iniciar">Ingresar</string>
+    <string name="iniciar">Iniciar Sesión</string>
     //Fragments
     <string name="scroll">Scroll</string>
     <string name="anadir">Agregar producto</string>
@@ -34,7 +34,7 @@
     <string name="labelprod">Producto</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="registrar">Nuevo Usuario</string>
+    <string name="registrar">Abrir Cuenta</string>
     <string name="imagenusuario" />
     <string name="confirmarcontrasena">Confirmar contraseña</string>
     //Strings para el menú del administrador
@@ -47,6 +47,8 @@
     <string name="nombre_usuarios"> Usuario </string>
     <string name="boton_confirmar"> Confirmar </string>
     <string name="boton_cancelar"> Cancelar </string>
+    <string name="boton_olvidepass"> ¿Olvidaste tu contraseña? </string>
+    <string name="nuevacuenta"> ¿No tiene una cuenta? </string>
     //Strings para menú de usuario
     <string name="usuarioprestamos"> Préstamos </string>
     <string name="usuariosolicitudes"> Solicitudes </string>
@@ -58,4 +60,5 @@
     <string name="configuracionConfirmarPass"> Confirma la contraseña </string>
     <string name="configuracionAceptar"> Aceptar </string>
     <string name="configuracionCancelar"> Cancelar </string>
+
 </resources>

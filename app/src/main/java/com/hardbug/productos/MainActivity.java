@@ -22,9 +22,19 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
 
     Button login;
+    Button btnNuevoUsuario;
     EditText usuario, contrasenia;
     private FirebaseAuth mAuth;
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null){
+            Toast.makeText(this,"Sin conexion a internet", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +45,13 @@ public class MainActivity extends AppCompatActivity {
         usuario = findViewById(R.id.campousuario);
         contrasenia = findViewById(R.id.campocontra);
         mAuth = FirebaseAuth.getInstance();
+
+        btnNuevoUsuario = findViewById(R.id.btnNuevoUsuario);
+
+        btnNuevoUsuario.setOnClickListener(view ->{
+            Intent intent = new Intent(view.getContext(), NuevoUsuario.class);
+            startActivity(intent);
+        });
 
 
         login.setOnClickListener(view -> {

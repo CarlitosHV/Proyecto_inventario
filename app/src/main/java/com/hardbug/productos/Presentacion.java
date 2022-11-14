@@ -26,8 +26,13 @@ public class Presentacion extends AppCompatActivity {
         imagenes.add(getResources().getDrawable(R.drawable.introtres));
         imagenes.add(getResources().getDrawable(R.drawable.introcuatro));
         imagenes.add(getResources().getDrawable(R.drawable.introcinco));
+        imagenes.add(getResources().getDrawable(R.drawable.introseis));
+        imagenes.add(getResources().getDrawable(R.drawable.instrosietee));
+        imagenes.add(getResources().getDrawable(R.drawable.introocho));
+        imagenes.add(getResources().getDrawable(R.drawable.intronueve));
+        imagenes.add(getResources().getDrawable(R.drawable.introdiez));
 
-        int randomNum = randomThis(0,4);
+        int randomNum = randomThis(0,9);
 
         ImageView imagen = findViewById(R.id.imgPresentacion);
         imagen.setImageDrawable(imagenes.get(randomNum));

@@ -9,8 +9,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     Button login;
     Button btnNuevoUsuario;
     EditText usuario, contrasenia;
+    TextView olvidasteContra;
     private FirebaseAuth mAuth;
 
     @Override
@@ -45,12 +48,23 @@ public class MainActivity extends AppCompatActivity {
         usuario = findViewById(R.id.campousuario);
         contrasenia = findViewById(R.id.campocontra);
         mAuth = FirebaseAuth.getInstance();
+        olvidasteContra = findViewById(R.id.btnOlvidePass);
 
         btnNuevoUsuario = findViewById(R.id.btnNuevoUsuario);
 
         btnNuevoUsuario.setOnClickListener(view ->{
             Intent intent = new Intent(view.getContext(), NuevoUsuario.class);
             startActivity(intent);
+        });
+
+
+        olvidasteContra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, olvideContra.class);
+                startActivity(intent);
+                finish();
+            }
         });
 
 

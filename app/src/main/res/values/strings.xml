@@ -65,4 +65,5 @@
     //Strings para fragment de registros
     <string name="registrosNombre"> Nombre </string>
     <string name="registrosFecha"> Fecha </string>
+    <string name="recuperar">Recuperar</string>
 </resources>

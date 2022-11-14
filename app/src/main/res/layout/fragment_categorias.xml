@@ -35,17 +35,20 @@
                 <ImageButton
                     android:id="@+id/btnherramientas"
                     android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    android:layout_marginStart="70dp"
+                    android:layout_height="70dp"
                     android:layout_marginTop="25dp"
+                    android:layout_marginStart="25dp"
+                    android:backgroundTint="@color/primaryDarkColor"
                     android:background="@drawable/ic_herramientas" />
 
                 <ImageButton
                     android:id="@+id/btnConsumibles"
                     android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    android:layout_marginStart="120dp"
+                    android:layout_height="70dp"
                     android:layout_marginTop="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginStart="150dp"
+                    android:backgroundTint="@color/primaryDarkColor"
                     android:background="@drawable/ic_consumibles" />
 
             </LinearLayout>
@@ -58,20 +61,15 @@
                 android:layout_marginBottom="50dp"
                 android:dividerHeight="2dp" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/botonanadir_categorias"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="330dp"
-                android:layout_marginBottom="5dp"
-                android:contentDescription="@string/nombre_producto" />
-
-
         </LinearLayout>
-
-
     </ScrollView>
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabcategorias"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/ic_add"
+        android:contentDescription="@string/nombre_usuarios"
+        android:layout_margin="16dp" />
 
 </FrameLayout>

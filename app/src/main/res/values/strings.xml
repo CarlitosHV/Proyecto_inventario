@@ -27,6 +27,7 @@
     <string name="categoriaprod">Categorías herramientas</string>
     <string name="configuracion">Configuración</string>
     <string name="registros"> Registros </string>
+    <string name="prestamos"> Préstamos </string>
     <string name="usuarios"> Usuarios </string>
     <string name="imagenprod">Imagen del producto</string>
     <string name="descripcionprod">Describe el producto</string>
@@ -72,4 +73,10 @@
     <string name="registrosNombre"> Nombre </string>
     <string name="registrosFecha"> Fecha </string>
     <string name="recuperar">Recuperar</string>
+    //Strings de fargment herramientas
+    <string name="nombreherramienta">Ingresa la herramienta</string>
+    <string name="descherramienta">Descripción</string>
+    <string name="cantidadherramienta">Cantidad</string>
+    <string name="fotoherramienta">Foto Herramienta</string>
+    <string name="headerherramienta">Agregar herramienta</string>
 </resources>

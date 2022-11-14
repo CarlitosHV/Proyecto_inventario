@@ -41,7 +41,8 @@ public class fragment_principal extends AppCompatActivity {
             abrirfragments(cate);
         }else{
             bottomNavigationView.inflateMenu(R.menu.menu_usuario);
-
+            fragment_prestamos presta= new fragment_prestamos();
+            abrirfragments(presta);
         }
 
 
@@ -69,6 +70,11 @@ public class fragment_principal extends AppCompatActivity {
                 case R.id.barmostrarinactivos:
                     listarinactivos Listarinactivos = new listarinactivos();
                     abrirfragments(Listarinactivos);
+                    return true;
+                    //Casos para el usuario
+                case R.id.menuuserprestamos:
+                    fragment_prestamos prestamos = new fragment_prestamos();
+                    abrirfragments(prestamos);
                     return true;
             }
             return false;

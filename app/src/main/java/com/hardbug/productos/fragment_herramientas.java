@@ -9,31 +9,28 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toolbar;
 
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fragment_categorias#newInstance} factory method to
+ * Use the {@link fragment_herramientas#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_categorias extends Fragment {
+public class fragment_herramientas extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    FloatingActionButton add;
-
     MaterialToolbar toolbar;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public fragment_categorias() {
+    public fragment_herramientas() {
         // Required empty public constructor
     }
 
@@ -43,11 +40,11 @@ public class fragment_categorias extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_categorias.
+     * @return A new instance of fragment fragment_herramientas.
      */
     // TODO: Rename and change types and number of parameters
-    public static fragment_categorias newInstance(String param1, String param2) {
-        fragment_categorias fragment = new fragment_categorias();
+    public static fragment_herramientas newInstance(String param1, String param2) {
+        fragment_herramientas fragment = new fragment_herramientas();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,25 +64,18 @@ public class fragment_categorias extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_categorias, container, false);
+        View root = inflater.inflate(R.layout.fragment_herramientas, container, false);
 
-        toolbar = root.findViewById(R.id.toolbarcateprods);
+        toolbar = root.findViewById(R.id.toolbaragregarherra);
         toolbar.setNavigationIcon(R.drawable.ic_back);
         toolbar.setNavigationOnClickListener(view -> {
-            Intent intent = new Intent(getContext(), MainActivity.class);
-            startActivity(intent);
-        });
-
-        add = root.findViewById(R.id.fabcategorias);
-        add.setOnClickListener(view -> {
-            fragment_herramientas herramientas = new fragment_herramientas();
+            fragment_categorias categorias = new fragment_categorias();
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.content, herramientas, "");
+            fragmentTransaction.replace(R.id.content, categorias, "");
             fragmentTransaction.setReorderingAllowed(true);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         });
-
         return root;
     }
 }

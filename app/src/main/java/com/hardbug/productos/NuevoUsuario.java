@@ -34,6 +34,7 @@ public class NuevoUsuario extends AppCompatActivity {
 
     FirebaseDatabase firebaseDB;
     DatabaseReference dbReference;
+    FirebaseFirestore firestore;
 
     private com.google.android.material.textfield.TextInputEditText usuario;
     private com.google.android.material.textfield.TextInputEditText contra;
@@ -76,7 +77,7 @@ public class NuevoUsuario extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            UserType usuarioNuevo = new UserType(usuario.getText().toString(), "Usuario", user.getUid());
+                            UserType usuarioNuevo = new UserType(usuario.getText().toString(), false, user.getUid());
                             nuevoUsuario(usuarioNuevo);
                             Toast.makeText(NuevoUsuario.this, "Registro Exitoso",
                                     Toast.LENGTH_SHORT).show();
@@ -90,7 +91,20 @@ public class NuevoUsuario extends AppCompatActivity {
     }
 
     private void nuevoUsuario(UserType usuarioNuevo){
-        dbReference.child("UserType").child(usuarioNuevo.getID()).setValue(usuarioNuevo);
+        firestore.collection("UsersType")
+                .add(usuarioNuevo)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        //
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(NuevoUsuario.this, "Error en el registro",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private boolean validarEmail(String email){
@@ -103,5 +117,6 @@ public class NuevoUsuario extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         firebaseDB = FirebaseDatabase.getInstance();
         dbReference = firebaseDB.getReference();
+        firestore = FirebaseFirestore.getInstance();
     }
 }

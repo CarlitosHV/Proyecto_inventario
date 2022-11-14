@@ -60,13 +60,8 @@ public class MainActivity extends AppCompatActivity {
         login = findViewById(R.id.btnlog);
         usuario = findViewById(R.id.campousuario);
         contrasenia = findViewById(R.id.campocontra);
-<<<<<<< HEAD
-        mAuth = FirebaseAuth.getInstance();
         olvidasteContra = findViewById(R.id.btnOlvidePass);
-=======
-
         iniciarFireBase();
->>>>>>> 5ad061e3c62a84cb61cbc9cdefc0b54b7a3dd10c
 
         btnNuevoUsuario = findViewById(R.id.btnNuevoUsuario);
 

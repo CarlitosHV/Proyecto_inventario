@@ -19,6 +19,7 @@ public class fragment_principal extends AppCompatActivity {
 
     Context context = this;
     BottomNavigationView bottomNavigationView;
+    Boolean prueba = true;
 
 
     @Override
@@ -29,42 +30,42 @@ public class fragment_principal extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setItemHorizontalTranslationEnabled(true);
 
+        if (prueba){
+            bottomNavigationView.inflateMenu(R.menu.menu_admin);
+        }else{
+            bottomNavigationView.inflateMenu(R.menu.menu_usuario);
+        }
 
-        fragment_home home = new fragment_home();
-        FragmentTransaction fragmentTransaction1 = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction1.replace(R.id.content, home, "");
-        fragmentTransaction1.addToBackStack(null);
-        fragmentTransaction1.commit();
+        //Fragment que siempre va a cargar en pantalla principal
+        fragment_categorias cate = new fragment_categorias();
+        abrirfragments(cate);
 
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                switch (item.getItemId()) {
-
-                    case R.id.barAnadir:
-                        Agregar agregar = new Agregar();
-                        abrirfragments(agregar);
-                        return true;
-                    case R.id.barhome:
-                        fragment_home home = new fragment_home();
-                        abrirfragments(home);
-                        return true;
-                    case R.id.barModify:
-                        fragment_modificar modificar = new fragment_modificar();
-                        abrirfragments(modificar);
-                        return true;
-                    case R.id.barmostraractivos:
-                        listaractivos Listaractivos = new listaractivos();
-                        abrirfragments(Listaractivos);
-                        return true;
-                    case R.id.barmostrarinactivos:
-                        listarinactivos Listarinactivos = new listarinactivos();
-                        abrirfragments(Listarinactivos);
-                        return true;
-                }
-                return false;
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                //Casos para los fragmentos del admin
+                case R.id.menuadmincategorias:
+                    fragment_categorias cats = new fragment_categorias();
+                    abrirfragments(cats);
+                    return true;
+                case R.id.menuadminconfiguracion:
+                    fragment_configuracion config = new fragment_configuracion();
+                    abrirfragments(config);
+                    return true;
+                case R.id.menuadminusuarios:
+                    fragment_usuarios usuarios = new fragment_usuarios();
+                    abrirfragments(usuarios);
+                    return true;
+                case R.id.menuadminregistros:
+                    fragment_registros registros = new fragment_registros();
+                    abrirfragments(registros);
+                    return true;
+                case R.id.barmostrarinactivos:
+                    listarinactivos Listarinactivos = new listarinactivos();
+                    abrirfragments(Listarinactivos);
+                    return true;
             }
+            return false;
         });
 
     }
@@ -83,8 +84,6 @@ public class fragment_principal extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.bartopfind:
-                //metodoAdd()
-
                 Toast.makeText(context, "Se ha presionado", Toast.LENGTH_SHORT).show();
                 return true;
             default:

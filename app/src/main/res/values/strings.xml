@@ -49,6 +49,8 @@
     <string name="boton_cancelar"> Cancelar </string>
     <string name="boton_olvidepass"> ¿Olvidaste tu contraseña? </string>
     <string name="nuevacuenta"> ¿No tiene una cuenta? </string>
+    //Strings para el cardview de categorías
+    <string name="nombre_producto"> Nombre </string>
     //Strings para menú de usuario
     <string name="usuarioprestamos"> Préstamos </string>
     <string name="usuariosolicitudes"> Solicitudes </string>
@@ -60,5 +62,7 @@
     <string name="configuracionConfirmarPass"> Confirma la contraseña </string>
     <string name="configuracionAceptar"> Aceptar </string>
     <string name="configuracionCancelar"> Cancelar </string>
-
+    //Strings para fragment de registros
+    <string name="registrosNombre"> Nombre </string>
+    <string name="registrosFecha"> Fecha </string>
 </resources>

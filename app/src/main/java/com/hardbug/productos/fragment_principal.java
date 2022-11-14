@@ -22,7 +22,7 @@ public class fragment_principal extends AppCompatActivity {
     Boolean prueba = true;
 
     protected void onStart() {
-        Toast.makeText(this, MainActivity.UserSys.getEmail() + " bienvenido", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, MainActivity.UserSys.getName() + " bienvenido", Toast.LENGTH_SHORT).show();
         super.onStart();
     }
 
@@ -34,7 +34,7 @@ public class fragment_principal extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setItemHorizontalTranslationEnabled(true);
 
-        if (prueba){
+        if (MainActivity.UserSys.isTipo()){
             bottomNavigationView.inflateMenu(R.menu.menu_admin);
         }else{
             bottomNavigationView.inflateMenu(R.menu.menu_usuario);

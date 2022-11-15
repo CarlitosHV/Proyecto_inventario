@@ -11,28 +11,25 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fragment_prestamos#newInstance} factory method to
+ * Use the {@link fragment_crear_solicitudes#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_prestamos extends Fragment {
+public class fragment_crear_solicitudes extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
     MaterialToolbar toolbar;
-    FloatingActionButton add;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public fragment_prestamos() {
+    public fragment_crear_solicitudes() {
         // Required empty public constructor
     }
 
@@ -42,11 +39,11 @@ public class fragment_prestamos extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_prestamos.
+     * @return A new instance of fragment fragment_crear_solicitudes.
      */
     // TODO: Rename and change types and number of parameters
-    public static fragment_prestamos newInstance(String param1, String param2) {
-        fragment_prestamos fragment = new fragment_prestamos();
+    public static fragment_crear_solicitudes newInstance(String param1, String param2) {
+        fragment_crear_solicitudes fragment = new fragment_crear_solicitudes();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -66,24 +63,17 @@ public class fragment_prestamos extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_prestamos, container, false);
-        toolbar = root.findViewById(R.id.toolbarprestamos);
+        View root = inflater.inflate(R.layout.fragment_crear_solicitudes, container, false);
+        toolbar = root.findViewById(R.id.toolbarcrearsolicitudes);
         toolbar.setNavigationIcon(R.drawable.ic_back);
         toolbar.setNavigationOnClickListener(view -> {
-            Intent intent = new Intent(getContext(), MainActivity.class);
-            startActivity(intent);
-        });
-
-        add = root.findViewById(R.id.fabrprestamos);
-        add.setOnClickListener(View -> {
-            fragment_crud_registro registro = new fragment_crud_registro();
+            fragment_solicitudes soli = new fragment_solicitudes();
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.content, registro, "");
+            fragmentTransaction.replace(R.id.content, soli, "");
             fragmentTransaction.setReorderingAllowed(true);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         });
-
         return root;
     }
 }

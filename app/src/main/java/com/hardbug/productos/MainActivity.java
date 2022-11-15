@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnNuevoUsuario = findViewById(R.id.btnNuevoUsuario);
 
-        btnNuevoUsuario.setOnClickListener(view ->{
+        btnNuevoUsuario.setOnClickListener(view -> {
             Intent intent = new Intent(view.getContext(), NuevoUsuario.class);
             startActivity(intent);
         });
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         login.setOnClickListener(view -> {
-            if (usuario.getText().toString().equals("") || contrasenia.getText().toString().equals("")){
+            if (usuario.getText().toString().equals("") || contrasenia.getText().toString().equals("")) {
                 Toast.makeText(this, "Ingresa la información", Toast.LENGTH_SHORT).show();
             }else{
                 loadingProgressBar.setVisibility(View.VISIBLE);
@@ -119,15 +119,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void LLamarUsuario(String id){
+    private void LLamarUsuario(String id) {
         firestore.collection("UsersType")
                 .whereEqualTo("id", id)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            for (QueryDocumentSnapshot document : task.getResult()){
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
                                 Map<String, Object> obj = document.getData();
                                 MainActivity.UserSys = new UserType();
                                 MainActivity.UserSys.setEmail(obj.get("email").toString());
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                                 MainActivity.UserSys.setName(obj.get("name").toString());
                             }
                         }
-                        if( MainActivity.UserSys != null ){
+                        if (MainActivity.UserSys != null) {
                             Intent intent = new Intent(MainActivity.this, fragment_principal.class);
                             startActivity(intent);
                         }
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private void iniciarFireBase(){
+    private void iniciarFireBase() {
         FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
         firebaseDB = FirebaseDatabase.getInstance();

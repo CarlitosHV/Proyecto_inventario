@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +25,7 @@ public class fragment_registros extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     MaterialToolbar toolbar;
+    FloatingActionButton add;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -69,6 +72,16 @@ public class fragment_registros extends Fragment {
         toolbar.setNavigationOnClickListener(view -> {
             Intent intent = new Intent(getContext(), MainActivity.class);
             startActivity(intent);
+        });
+
+        add = root.findViewById(R.id.fabregistro);
+        add.setOnClickListener(View -> {
+            fragment_crud_registro crud_registro = new fragment_crud_registro();
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.content, crud_registro, "");
+            fragmentTransaction.setReorderingAllowed(true);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         });
 
         return root;

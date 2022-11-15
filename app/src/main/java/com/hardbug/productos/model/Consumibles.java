@@ -8,18 +8,16 @@ public class Consumibles {
     private String descripcion;
     private Date fecha;
     private float count;
-    private String sucursalID;
 
 
     public Consumibles() {
     }
 
-    public Consumibles(String code, String descripcion, Date fecha, float count, String sucursalID) {
+    public Consumibles(String code, String descripcion, Date fecha, float count) {
         this.setCode(code);
         this.setDescripcion(descripcion);
         this.setFecha(fecha);
         this.setCount(count);
-        this.setSucursalID(sucursalID);
     }
 
     public String getCode() {
@@ -52,13 +50,5 @@ public class Consumibles {
 
     public void setCount(float count) {
         this.count = count;
-    }
-
-    public String getSucursalID() {
-        return sucursalID;
-    }
-
-    public void setSucursalID(String sucursalID) {
-        this.sucursalID = sucursalID;
     }
 }

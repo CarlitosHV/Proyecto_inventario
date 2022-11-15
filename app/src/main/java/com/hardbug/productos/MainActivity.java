@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnNuevoUsuario;
     EditText usuario, contrasenia;
     TextView olvidasteContra;
+    ProgressBar loadingProgressBar;
     private FirebaseAuth mAuth;
 
     public static UserType UserSys;
@@ -48,9 +50,6 @@ public class MainActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         signOut();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser == null){
-            Toast.makeText(this,"Sin conexion a internet", Toast.LENGTH_SHORT).show();
-        }
     }
 
     public void signOut() {
@@ -68,14 +67,10 @@ public class MainActivity extends AppCompatActivity {
         login = findViewById(R.id.btnlog);
         usuario = findViewById(R.id.campousuario);
         contrasenia = findViewById(R.id.campocontra);
-
+        loadingProgressBar = findViewById(R.id.loading);
 
         olvidasteContra = findViewById(R.id.btnOlvidePass);
-
-
         iniciarFireBase();
-
-
 
         btnNuevoUsuario = findViewById(R.id.btnNuevoUsuario);
 
@@ -99,12 +94,14 @@ public class MainActivity extends AppCompatActivity {
             if (usuario.getText().toString().equals("") || contrasenia.getText().toString().equals("")){
                 Toast.makeText(this, "Ingresa la información", Toast.LENGTH_SHORT).show();
             }else{
+                loadingProgressBar.setVisibility(View.VISIBLE);
                 mAuth.signInWithEmailAndPassword(usuario.getText().toString().trim(), contrasenia.getText().toString())
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
+
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     LLamarUsuario(user.getUid());
                                     //updateUI(user);

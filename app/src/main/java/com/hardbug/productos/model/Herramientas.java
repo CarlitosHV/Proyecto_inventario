@@ -8,17 +8,15 @@ public class Herramientas {
     private String descripcion;
     private Date fecha;
     private int count;
-    private String sucursalID;
 
     public Herramientas() {
     }
 
-    public Herramientas(String code, String descripcion, Date fecha, int count, String sucursalID) {
+    public Herramientas(String code, String descripcion, Date fecha, int count) {
         this.setCode(code);
         this.setDescripcion(descripcion);
         this.setFecha(fecha);
         this.setCount(count);
-        this.setSucursalID(sucursalID);
     }
 
 
@@ -53,13 +51,5 @@ public class Herramientas {
 
     public void setCount(int count) {
         this.count = count;
-    }
-
-    public String getSucursalID() {
-        return sucursalID;
-    }
-
-    public void setSucursalID(String sucursalID) {
-        this.sucursalID = sucursalID;
     }
 }

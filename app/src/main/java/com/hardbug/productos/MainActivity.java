@@ -46,10 +46,18 @@ public class MainActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
+        signOut();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser == null){
             Toast.makeText(this,"Sin conexion a internet", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void signOut() {
+        // [START auth_fui_signout]
+        mAuth.getInstance().signOut();
+        MainActivity.UserSys = new UserType();
+        // [END auth_fui_signout]
     }
 
     @Override

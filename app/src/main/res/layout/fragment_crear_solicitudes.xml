@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment_crud_registro">
+    tools:context=".fragment_crear_solicitudes">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,11 +20,11 @@
                 android:layout_height="40dp">
 
                 <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/toolbarcrearregistros"
+                    android:id="@+id/toolbarcrearsolicitudes"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="?attr/colorPrimaryVariant"
-                    app:title="@string/registros"/>
+                    app:title="@string/solicitudes"/>
             </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -65,15 +65,15 @@
                 android:layout_marginEnd="25dp"
                 app:endIconMode="clear_text"
                 app:startIconCheckable="true"
-                app:startIconContentDescription="@string/fechaprestamo"
-                app:startIconDrawable="@drawable/ic_date">
+                app:startIconContentDescription="@string/comentario"
+                app:startIconDrawable="@drawable/ic_comments">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/fecha_devuelto"
+                    android:id="@+id/comentarios"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/fechadevuelto"
-                    android:inputType="date"
+                    android:hint="@string/comentario"
+                    android:inputType="textPersonName"
                     tools:layout_editor_absoluteX="16dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -81,7 +81,7 @@
             <ListView
                 android:id="@+id/custom_list_view_registros"
                 android:layout_width="match_parent"
-                android:layout_height="550dp"
+                android:layout_height="350dp"
                 android:layout_marginTop="25dp"
                 android:layout_marginBottom="50dp"
                 android:dividerHeight="2dp" />

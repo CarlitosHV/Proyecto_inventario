@@ -3,23 +3,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment_usuarios">
 
-    <ListView
-        android:id="@+id/custom_list_view"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="550dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="50dp"
-        android:dividerHeight="2dp" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbarusuarios"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/colorPrimaryVariant"
+                    app:title="@string/usuarios"/>
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <ListView
+                android:id="@+id/custom_list_view_usuarios"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="50dp"
+                android:dividerHeight="2dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/botonanadir"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="330dp"
-        android:layout_marginBottom="5dp"
-        android:contentDescription="@string/nombre_producto" />
+        android:id="@+id/fabuser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/ic_add"
+        android:contentDescription="@string/nombre_usuarios"
+        android:layout_margin="16dp" />
+
 
 </FrameLayout>

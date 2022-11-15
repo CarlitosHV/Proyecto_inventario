@@ -2,6 +2,9 @@
     <string name="app_name">Productos</string>
     <string name="label_login">Iniciar sesión</string>
     <string name="usuario">Escribe tu usuario</string>
+    <string name="nombre">Usuario</string>
+    <string name="fechaprestamo">Fecha préstamo</string>
+    <string name="fechadevuelto">Fecha de devolución</string>
     <string name="email">Escribe tu email</string>
     <string name="contrasena">Escribe tu contraseña</string>
     <string name="iniciar">Iniciar Sesión</string>
@@ -10,6 +13,7 @@
     <string name="anadir">Agregar producto</string>
     <string name="modificar">Modificar producto</string>
     <string name="consultar">Consultar producto</string>
+    <string name="edicion_usuario"> Editar usuario </string>
     <string name="eliminar">Eliminar</string>
     <string name="inactivar">Inactivar</string>
     <string name="listar">Listar activos</string>
@@ -23,7 +27,12 @@
     <string name="idprodbuscar">Buscar ID</string>
     <string name="botonbuscar">Buscar</string>
     <string name="nombreprod">Nombre producto</string>
-    <string name="categoriaprod">Categoría producto</string>
+    <string name="categoriaprod">Categorías herramientas</string>
+    <string name="configuracion">Configuración</string>
+    <string name="registros"> Registros </string>
+    <string name="solicitudes"> Solicitudes </string>
+    <string name="prestamos"> Préstamos </string>
+    <string name="usuarios"> Usuarios </string>
     <string name="imagenprod">Imagen del producto</string>
     <string name="descripcionprod">Describe el producto</string>
     <string name="fotoprod">Tomar foto del producto</string>
@@ -38,6 +47,7 @@
     <string name="registrar">Abrir Cuenta</string>
     <string name="imagenusuario" />
     <string name="confirmarcontrasena">Confirmar contraseña</string>
+    <string name="checkadmineditar">Convertir a administrador</string>
     //Strings para el menú del administrador
     <string name="admincategorias"> Categorías </string>
     <string name="adminusuarios"> Usuarios </string>
@@ -67,4 +77,10 @@
     <string name="registrosNombre"> Nombre </string>
     <string name="registrosFecha"> Fecha </string>
     <string name="recuperar">Recuperar</string>
+    //Strings de fargment herramientas
+    <string name="nombreherramienta">Ingresa la herramienta</string>
+    <string name="descherramienta">Descripción</string>
+    <string name="cantidadherramienta">Cantidad</string>
+    <string name="fotoherramienta">Foto Herramienta</string>
+    <string name="headerherramienta">Agregar herramienta</string>
 </resources>

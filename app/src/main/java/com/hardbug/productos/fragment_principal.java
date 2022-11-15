@@ -49,6 +49,8 @@ public class fragment_principal extends AppCompatActivity {
 
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
+            fragment_configuracion config = new fragment_configuracion();
+            fragment_solicitudes sol = new fragment_solicitudes();
             switch (item.getItemId()) {
                 //Casos para los fragmentos del admin
                 case R.id.menuadmincategorias:
@@ -56,7 +58,6 @@ public class fragment_principal extends AppCompatActivity {
                     abrirfragments(cats);
                     return true;
                 case R.id.menuadminconfiguracion:
-                    fragment_configuracion config = new fragment_configuracion();
                     abrirfragments(config);
                     return true;
                 case R.id.menuadminusuarios:
@@ -67,14 +68,19 @@ public class fragment_principal extends AppCompatActivity {
                     fragment_registros registros = new fragment_registros();
                     abrirfragments(registros);
                     return true;
-                case R.id.barmostrarinactivos:
-                    listarinactivos Listarinactivos = new listarinactivos();
-                    abrirfragments(Listarinactivos);
+                case R.id.menuadminsolicitudes:
+                    abrirfragments(sol);
                     return true;
                     //Casos para el usuario
                 case R.id.menuuserprestamos:
                     fragment_prestamos prestamos = new fragment_prestamos();
                     abrirfragments(prestamos);
+                    return true;
+                case R.id.menuusuarioconfiguracion:
+                    abrirfragments(config);
+                    return true;
+                case R.id.menuusuariosolicitudes:
+                    abrirfragments(sol);
                     return true;
             }
             return false;

@@ -3,6 +3,7 @@ package com.hardbug.productos.model;
 import java.util.Date;
 
 public class Solicitudes {
+    private String ID;
     private String userEmail;
     private String status; //Creo que es boolean
     private Date fecha;
@@ -16,13 +17,22 @@ public class Solicitudes {
 
     }
 
-    public Solicitudes(String userEmail, String status, Date fecha, String comentario, String Herramientas[], String Consumibles[]) {
+    public Solicitudes(String ID, String userEmail, String status, Date fecha, String comentario, String Herramientas[], String Consumibles[]) {
+        this.setID(ID);
         this.setUserEmail(userEmail);
         this.setStatus(status);
         this.setFecha(fecha);
         this.setComentario(comentario);
         this.setHerramientas(Herramientas);
         this.setConsumibles(Consumibles);
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     public String[] getHerramientas() {

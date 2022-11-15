@@ -5,6 +5,7 @@
     <string name="nombre">Usuario</string>
     <string name="fechaprestamo">Fecha préstamo</string>
     <string name="fechadevuelto">Fecha de devolución</string>
+    <string name="comentario">Comentarios</string>
     <string name="email">Escribe tu email</string>
     <string name="contrasena">Escribe tu contraseña</string>
     <string name="iniciar">Iniciar Sesión</string>

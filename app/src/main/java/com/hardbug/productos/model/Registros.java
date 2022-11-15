@@ -3,7 +3,7 @@ package com.hardbug.productos.model;
 import java.util.Date;
 
 public class Registros {
-
+    private String ID;
     private String userEmail;
     private Date fechaPrestamo;
     private Date fechaDevuelto;
@@ -18,7 +18,8 @@ public class Registros {
 
 
 
-    public Registros(String userEmail, Date fechaPrestamo, Date fechaDevuelto, boolean status, String Herramientas[], String Consumibles[]){
+    public Registros(String ID, String userEmail, Date fechaPrestamo, Date fechaDevuelto, boolean status, String Herramientas[], String Consumibles[]){
+        this.setID(ID);
         this.setUserEmail(userEmail);
         this.setFechaPrestamo(fechaPrestamo);
         this.setFechaDevuelto(fechaDevuelto);
@@ -26,6 +27,14 @@ public class Registros {
         this.setHerramientas(Herramientas);
         this.setConsumibles(Consumibles);
 
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     public String[] getHerramientas() {

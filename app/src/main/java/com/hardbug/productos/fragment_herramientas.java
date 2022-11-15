@@ -1,16 +1,27 @@
 package com.hardbug.productos;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -26,6 +37,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.hardbug.productos.model.Herramientas;
 import com.hardbug.productos.model.UserType;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -49,7 +62,11 @@ public class fragment_herramientas extends Fragment {
     //VAriables propias
     private FirebaseFirestore firestore;
 
-    Button btnguardarherramienta;
+    Button btnguardarherramienta, tomarfoto;
+    public String img;
+    public String rutaImagen;
+    ImageView imagen;
+    CheckBox consumible, herramienta;
 
     com.google.android.material.textfield.TextInputEditText nombre_herramienta;
     com.google.android.material.textfield.TextInputEditText descherramienta;
@@ -105,10 +122,31 @@ public class fragment_herramientas extends Fragment {
         });
 
         loadingProgressBar = root.findViewById(R.id.loadingCH);
-
+        consumible = root.findViewById(R.id.checkconsumible);
+        herramienta = root.findViewById(R.id.checkherramienta);
         nombre_herramienta = root.findViewById(R.id.nombre_herramienta);
         descherramienta = root.findViewById(R.id.descherramienta);
         cantidad_herramienta = root.findViewById(R.id.cantidad_herramienta);
+        imagen = root.findViewById(R.id.ivFotoherra);
+        tomarfoto = root.findViewById(R.id.btntomarfotoherramienta);
+
+        herramienta.setChecked(true);
+
+        consumible.setOnClickListener(View -> {
+            if (consumible.isChecked()){
+                herramienta.setChecked(false);
+            }
+        });
+
+        herramienta.setOnClickListener(View -> {
+            if (herramienta.isChecked()){
+                consumible.setChecked(false);
+            }
+        });
+
+        tomarfoto.setOnClickListener(View -> {
+            abrirCamara();
+        });
 
         btnguardarherramienta = root.findViewById(R.id.btnguardarherramienta);
         btnguardarherramienta.setOnClickListener(new View.OnClickListener() {
@@ -150,6 +188,42 @@ public class fragment_herramientas extends Fragment {
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+    private void abrirCamara() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+            File imagenArchivo = null;
+            try {
+                imagenArchivo = crearImagen();
+            } catch (IOException ex) {
+                Log.e("Error ", ex.toString());
+            }
+
+            if (imagenArchivo != null) {
+                Uri fotoUri = FileProvider.getUriForFile(getContext(), "com.hardbug.productos.fileprovider", imagenArchivo);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, fotoUri);
+                startActivityForResult(intent, 1);
+            }
+        }
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            //Bundle extras = data.getExtras();
+            Bitmap imgBitMap = BitmapFactory.decodeFile(rutaImagen);
+            imagen.setImageBitmap(imgBitMap);
+
+        }
+    }
+
+    private File crearImagen() throws IOException {
+        String nombreImagen = "producto_";
+        File directorio = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File imagen = File.createTempFile(nombreImagen, ".jpg", directorio);
+        rutaImagen = imagen.getAbsolutePath();
+        img = rutaImagen;
+        return imagen;
     }
 
     private void iniciarFireBase(){

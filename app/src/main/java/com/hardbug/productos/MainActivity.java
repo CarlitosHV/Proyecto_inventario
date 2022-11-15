@@ -60,8 +60,14 @@ public class MainActivity extends AppCompatActivity {
         login = findViewById(R.id.btnlog);
         usuario = findViewById(R.id.campousuario);
         contrasenia = findViewById(R.id.campocontra);
+
+
         olvidasteContra = findViewById(R.id.btnOlvidePass);
+
+
         iniciarFireBase();
+
+
 
         btnNuevoUsuario = findViewById(R.id.btnNuevoUsuario);
 

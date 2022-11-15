@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -14,19 +13,20 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.hardbug.productos.model.usuarios;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.hardbug.productos.model.UserType;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,9 +43,14 @@ public class fragment_usuarios extends Fragment {
     FloatingActionButton add;
     ListView lusuarios;
 
-    ArrayList<String> coursesArrayList;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    private FirebaseAuth mAuth;
+
+    public static UserType UserSys;
+    ArrayList<String> listaUsers = new ArrayList<String>();
+    ArrayAdapter<UserType> userArrayAdapter;
+
+    private FirebaseDatabase firebaseDB;
+    private FirebaseFirestore firestore;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -86,6 +91,9 @@ public class fragment_usuarios extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_usuarios, container, false);
+
+        iniciarFireBase();
+        LLamarUsuario();
         toolbar = root.findViewById(R.id.toolbarusuarios);
         toolbar.setNavigationIcon(R.drawable.ic_back);
         toolbar.setNavigationOnClickListener(view -> {
@@ -103,81 +111,37 @@ public class fragment_usuarios extends Fragment {
             fragmentTransaction.commit();
         });
 
-        iniciarfirebase();
-        // initializing variables for listviews.
-        lusuarios = root.findViewById(R.id.custom_list_view_usuarios);
-
-        // initializing our array list
-        coursesArrayList = new ArrayList<String>();
-
-        // calling a method to get data from
-        // Firebase and set data to list view
-        initializeListView();
-
         return root;
     }
 
-    public void iniciarfirebase(){
-        FirebaseApp.initializeApp(getContext());
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
+    public void LLamarUsuario() {
+        ArrayList<UserType> usuarios = new ArrayList<>();
+        firestore.collection("UsersType")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Map<String, Object> obj = document.getData();
+                                UserType usuario = new UserType();
+                                usuario.setEmail(obj.get("email").toString());
+                                usuario.setID(obj.get("id").toString());
+                                usuario.setTipo((Boolean) obj.get("tipo"));
+                                usuario.setName(obj.get("name").toString());
+                                usuarios.add(usuario);
+                            }
+                        }
+                        System.out.println(usuarios);
+                    }
+                });
     }
 
-    private void initializeListView() {
-        // creating a new array adapter for our list view.
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_dropdown_item_1line, coursesArrayList);
 
-        // below line is used for getting reference
-        // of our Firebase Database.
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-
-        // in below line we are calling method for add child event
-        // listener to get the child of our database.
-        databaseReference.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                // this method is called when new child is added to
-                // our data base and after adding new child
-                // we are adding that item inside our array list and
-                // notifying our adapter that the data in adapter is changed.
-                coursesArrayList.add(snapshot.getValue(String.class));
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                // this method is called when the new child is added.
-                // when the new child is added to our list we will be
-                // notifying our adapter that data has changed.
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                // below method is called when we remove a child from our database.
-                // inside this method we are removing the child from our array list
-                // by comparing with it's value.
-                // after removing the data we are notifying our adapter that the
-                // data has been changed.
-                coursesArrayList.remove(snapshot.getValue(String.class));
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                // this method is called when we move our
-                // child in our database.
-                // in our code we are note moving any child.
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // this method is called when we get any
-                // error from Firebase with error.
-            }
-        });
-        // below line is used for setting
-        // an adapter to our list view.
-        lusuarios.setAdapter(adapter);
+    private void iniciarFireBase() {
+        FirebaseApp.initializeApp(getContext());
+        mAuth = FirebaseAuth.getInstance();
+        firebaseDB = FirebaseDatabase.getInstance();
+        firestore = FirebaseFirestore.getInstance();
     }
 }

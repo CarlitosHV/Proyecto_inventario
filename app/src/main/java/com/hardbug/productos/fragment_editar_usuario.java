@@ -1,16 +1,29 @@
 package com.hardbug.productos;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.hardbug.productos.model.Herramientas;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +37,15 @@ public class fragment_editar_usuario extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     MaterialToolbar toolbar;
+
+    private FirebaseFirestore firestore;
+
+    Button btnguardaruser;
+    ProgressBar loadingProgressBar;
+    CheckBox admin;
+    EditText usuario, contrasenia, contrasenia2;
+
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -60,6 +82,7 @@ public class fragment_editar_usuario extends Fragment {
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -75,6 +98,45 @@ public class fragment_editar_usuario extends Fragment {
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         });
+
+        loadingProgressBar = root.findViewById(R.id.loadingUser);
+        usuario = root.findViewById(R.id.campousuarioeditar);
+        contrasenia = root.findViewById(R.id.contraeditar);
+        contrasenia2 = root.findViewById(R.id.confirmarcontraeditar);
+        admin = root.findViewById(R.id.checkadmin);
+        btnguardaruser = root.findViewById(R.id.btnmodificaruser);
+
+        btnguardaruser.setOnClickListener(View -> {
+
+        });
+
+
         return root;
+    }
+
+    private void nuevaHerramienta( Herramientas herramientaNueva){
+        loadingProgressBar.setVisibility(View.VISIBLE);
+        firestore.collection("Herramientas")
+                .add(herramientaNueva)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        /*nombre_herramienta.setText("");
+                        descherramienta.setText("");
+                        cantidad_herramienta.setText("");
+                        loadingProgressBar.setVisibility(View.GONE);*/
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(), "Error en el registro",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void iniciarFireBase(){
+        FirebaseApp.initializeApp(getContext());
+        firestore = FirebaseFirestore.getInstance();
     }
 }

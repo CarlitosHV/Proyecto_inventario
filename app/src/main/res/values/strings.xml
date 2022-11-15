@@ -9,6 +9,8 @@
     <string name="email">Escribe tu email</string>
     <string name="contrasena">Escribe tu contraseña</string>
     <string name="iniciar">Iniciar Sesión</string>
+    <string name="consumible">Consumible</string>
+    <string name="herramienta">Herramienta</string>
     //Fragments
     <string name="scroll">Scroll</string>
     <string name="anadir">Agregar producto</string>
@@ -79,7 +81,7 @@
     <string name="registrosFecha"> Fecha </string>
     <string name="recuperar">Recuperar</string>
     //Strings de fargment herramientas
-    <string name="nombreherramienta">Ingresa la herramienta</string>
+    <string name="nombreherramienta">Código</string>
     <string name="descherramienta">Descripción</string>
     <string name="cantidadherramienta">Cantidad</string>
     <string name="fotoherramienta">Foto Herramienta</string>

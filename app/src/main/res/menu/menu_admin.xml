@@ -11,7 +11,7 @@
         android:id="@+id/menuadminusuarios"
         app:showAsAction="always"
         android:icon="@drawable/ic_usuarios"
-        android:title="@string/consultar" />
+        android:title="@string/usuarios" />
 
     <item
         android:id="@+id/menuadminregistros"

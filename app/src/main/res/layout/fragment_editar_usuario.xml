@@ -108,6 +108,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/checkadmin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/checkadmineditar"
@@ -132,5 +133,16 @@
 
         </LinearLayout>
     </ScrollView>
+    <ProgressBar
+        android:id="@+id/loadingUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="64dp"
+        android:layout_marginBottom="64dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
 
 </FrameLayout>

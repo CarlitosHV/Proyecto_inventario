@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -23,9 +24,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.hardbug.productos.design.CustomAdapter;
+import com.hardbug.productos.model.ListaUsers;
 import com.hardbug.productos.model.UserType;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,7 +37,7 @@ import java.util.Map;
  * Use the {@link fragment_usuarios#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_usuarios extends Fragment {
+public class fragment_usuarios extends Fragment implements AdapterView.OnItemClickListener{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,13 +45,15 @@ public class fragment_usuarios extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     MaterialToolbar toolbar;
     FloatingActionButton add;
-    ListView lusuarios;
 
     private FirebaseAuth mAuth;
 
+    private List<UserType> ListarProductos = new ArrayList<>();
     public static UserType UserSys;
     ArrayList<String> listaUsers = new ArrayList<String>();
+    ArrayList<ListaUsers> listau = new ArrayList<ListaUsers>();
     ArrayAdapter<UserType> userArrayAdapter;
+    ArrayList<UserType> usuarios = new ArrayList<>();
 
     private FirebaseDatabase firebaseDB;
     private FirebaseFirestore firestore;
@@ -78,6 +84,15 @@ public class fragment_usuarios extends Fragment {
         return fragment;
     }
 
+    private ArrayList<ListaUsers> seticonandname(){
+        usuarios = new ArrayList<>();
+        for (int i = 0; i < usuarios.size(); i++){
+            //cargarImagen(imagenes.get(i));
+            listau.add(new ListaUsers(R.drawable.ic_productoname, usuarios.get(i).getName()));
+        }
+        return listau;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +109,12 @@ public class fragment_usuarios extends Fragment {
 
         iniciarFireBase();
         LLamarUsuario();
+        listau = seticonandname();
+        ListView listView = root.findViewById(R.id.custom_list_view_usuarios);
+        CustomAdapter customAdapter = new CustomAdapter(getContext(), listau);
+        listView.setAdapter(customAdapter);
+        listView.setOnItemClickListener(this);
+
         toolbar = root.findViewById(R.id.toolbarusuarios);
         toolbar.setNavigationIcon(R.drawable.ic_back);
         toolbar.setNavigationOnClickListener(view -> {
@@ -115,7 +136,7 @@ public class fragment_usuarios extends Fragment {
     }
 
     public void LLamarUsuario() {
-        ArrayList<UserType> usuarios = new ArrayList<>();
+
         firestore.collection("UsersType")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -132,7 +153,6 @@ public class fragment_usuarios extends Fragment {
                                 usuarios.add(usuario);
                             }
                         }
-                        System.out.println(usuarios);
                     }
                 });
     }
@@ -143,5 +163,10 @@ public class fragment_usuarios extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         firebaseDB = FirebaseDatabase.getInstance();
         firestore = FirebaseFirestore.getInstance();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
     }
 }

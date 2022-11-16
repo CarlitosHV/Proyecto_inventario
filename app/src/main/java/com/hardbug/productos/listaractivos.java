@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.hardbug.productos.bd.SQLITE;
 import com.hardbug.productos.design.CustomAdapter;
-import com.hardbug.productos.model.ListaProds;
+import com.hardbug.productos.model.ListaUsers;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class listaractivos extends Fragment implements AdapterView.OnItemClickLi
 
 
     SQLITE sqlite;
-    private ArrayList<ListaProds> listaProds;
+    private ArrayList<ListaUsers> listaProds;
 
     public listaractivos() {
         // Required empty public constructor
@@ -99,11 +99,11 @@ public class listaractivos extends Fragment implements AdapterView.OnItemClickLi
         return root;
     }
 
-    private ArrayList<ListaProds> seticonandname(){
+    private ArrayList<ListaUsers> seticonandname(){
         listaProds = new ArrayList<>();
         for (int i = 0; i < Nombres.size(); i++){
             //cargarImagen(imagenes.get(i));
-            listaProds.add(new ListaProds(R.drawable.ic_productoname, Nombres.get(i)));
+            listaProds.add(new ListaUsers(R.drawable.ic_productoname, Nombres.get(i)));
         }
         return listaProds;
     }

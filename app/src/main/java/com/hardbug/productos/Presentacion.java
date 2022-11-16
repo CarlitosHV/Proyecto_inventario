@@ -14,8 +14,8 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Presentacion extends AppCompatActivity {
-    private static int TIME_OUT = 3000;
-    private ArrayList<Drawable> imagenes = new ArrayList<Drawable>();
+    private static final int TIME_OUT = 3000;
+    private final ArrayList<Drawable> imagenes = new ArrayList<Drawable>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

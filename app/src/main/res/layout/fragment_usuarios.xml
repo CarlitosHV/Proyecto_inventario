@@ -12,12 +12,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
+                android:layout_height="wrap_content">
 
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/toolbarusuarios"
@@ -30,11 +30,8 @@
             <ListView
                 android:id="@+id/custom_list_view_usuarios"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="25dp"
-                android:layout_marginBottom="50dp"
+                android:layout_height="600dp"
                 android:dividerHeight="2dp" />
-
         </LinearLayout>
 
     </ScrollView>

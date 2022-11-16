@@ -39,7 +39,7 @@ public class SQLITE {
         cv.put("ACTIVO", activo);
         cv.put("IMAGEN", imagepath);
 
-        return (db.insert("PRODUCTOS", null, cv) != 1)?true : false;
+        return db.insert("PRODUCTOS", null, cv) != 1;
     }
     public Cursor getProducto(){
         return db.rawQuery("SELECT * FROM PRODUCTOS WHERE ACTIVO=true", null);
@@ -128,11 +128,7 @@ public class SQLITE {
 
         int valor = db.update("PRODUCTOS", cv, "ID_PRODUCTO=" + id, null);
 
-        if (valor == 1){
-            return true;
-        }else{
-            return false;
-        }
+        return valor == 1;
     }
 
     public Cursor getValor(int id){

@@ -1,11 +1,11 @@
 package com.hardbug.productos.model;
 
-public class ListaProds {
+public class ListaUsers {
     private final Integer iconoprod;
     private final String nomprod;
 
 
-    public ListaProds(Integer iconoprod,String nomprod) {
+    public ListaUsers(Integer iconoprod, String nomprod) {
         this.iconoprod = iconoprod;
         this.nomprod = nomprod;
     }

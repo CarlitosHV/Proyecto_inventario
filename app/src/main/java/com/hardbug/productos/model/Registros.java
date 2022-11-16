@@ -7,8 +7,8 @@ public class Registros {
     private String userEmail;
     private Date fechaPrestamo;
     private Date fechaDevuelto;
-    private String Herramientas[];
-    private String Consumibles[];
+    private String[] Herramientas;
+    private String[] Consumibles;
     //Falta herramientas y consumibles arreglos
     private boolean status;
 
@@ -18,7 +18,7 @@ public class Registros {
 
 
 
-    public Registros(String ID, String userEmail, Date fechaPrestamo, Date fechaDevuelto, boolean status, String Herramientas[], String Consumibles[]){
+    public Registros(String ID, String userEmail, Date fechaPrestamo, Date fechaDevuelto, boolean status, String[] Herramientas, String[] Consumibles){
         this.setID(ID);
         this.setUserEmail(userEmail);
         this.setFechaPrestamo(fechaPrestamo);

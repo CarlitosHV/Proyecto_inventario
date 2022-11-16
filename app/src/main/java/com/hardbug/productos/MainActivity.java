@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void signOut() {
         // [START auth_fui_signout]
-        mAuth.getInstance().signOut();
+        FirebaseAuth.getInstance().signOut();
         MainActivity.UserSys = new UserType();
         // [END auth_fui_signout]
     }

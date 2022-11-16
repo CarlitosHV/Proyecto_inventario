@@ -8,8 +8,8 @@ public class Solicitudes {
     private String status; //Creo que es boolean
     private Date fecha;
     private String comentario;
-    private String Herramientas[];
-    private String Consumibles[];
+    private String[] Herramientas;
+    private String[] Consumibles;
     //Falta herramientas y consumibles
 
 
@@ -17,7 +17,7 @@ public class Solicitudes {
 
     }
 
-    public Solicitudes(String ID, String userEmail, String status, Date fecha, String comentario, String Herramientas[], String Consumibles[]) {
+    public Solicitudes(String ID, String userEmail, String status, Date fecha, String comentario, String[] Herramientas, String[] Consumibles) {
         this.setID(ID);
         this.setUserEmail(userEmail);
         this.setStatus(status);

@@ -1,6 +1,5 @@
 package com.hardbug.productos;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.database.Cursor;
 import android.net.Uri;
@@ -21,7 +20,7 @@ import android.widget.Toast;
 
 import com.hardbug.productos.bd.SQLITE;
 import com.hardbug.productos.design.CustomAdapter;
-import com.hardbug.productos.model.ListaProds;
+import com.hardbug.productos.model.ListaUsers;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -40,7 +39,7 @@ public class listarinactivos extends Fragment implements AdapterView.OnItemClick
 
 
     SQLITE sqlite;
-    private ArrayList<ListaProds> listaProds;
+    private ArrayList<ListaUsers> listaProds;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -100,11 +99,11 @@ public class listarinactivos extends Fragment implements AdapterView.OnItemClick
         return root;
     }
 
-    private ArrayList<ListaProds> seticonandname(){
+    private ArrayList<ListaUsers> seticonandname(){
         listaProds = new ArrayList<>();
         for (int i = 0; i < Nombres.size(); i++){
             //cargarImagen(imagenes.get(i));
-            listaProds.add(new ListaProds(R.drawable.ic_productoname, Nombres.get(i)));
+            listaProds.add(new ListaUsers(R.drawable.ic_productoname, Nombres.get(i)));
         }
         return listaProds;
     }

@@ -122,11 +122,7 @@ public class fragment_editar_usuario extends Fragment {
         admin = root.findViewById(R.id.checkadmin);
         btnguardaruser = root.findViewById(R.id.btnmodificaruser);
 
-        if (admin.isChecked()){
-            Admin = true;
-        }else{
-            Admin = false;
-        }
+        Admin = admin.isChecked();
 
         btnguardaruser.setOnClickListener(View -> {
             if(validarEmail(usuario.getText().toString())){

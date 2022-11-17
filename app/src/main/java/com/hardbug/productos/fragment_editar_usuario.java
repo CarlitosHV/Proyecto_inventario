@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +18,23 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.hardbug.productos.model.Herramientas;
+import com.hardbug.productos.model.UserType;
+
+import java.util.concurrent.Executor;
+import java.util.regex.Pattern;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,11 +50,14 @@ public class fragment_editar_usuario extends Fragment {
     MaterialToolbar toolbar;
 
     private FirebaseFirestore firestore;
+    private FirebaseDatabase firebaseDB;
+    private FirebaseAuth mAuth;
 
     Button btnguardaruser;
     ProgressBar loadingProgressBar;
     CheckBox admin;
-    EditText usuario, contrasenia, contrasenia2;
+    Boolean Admin;
+    private com.google.android.material.textfield.TextInputEditText usuario, contrasenia, contrasenia2;
 
 
 
@@ -88,6 +102,8 @@ public class fragment_editar_usuario extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_editar_usuario, container, false);
 
+        iniciarFireBase();
+
         toolbar = root.findViewById(R.id.toolbareditar_user);
         toolbar.setNavigationIcon(R.drawable.ic_back);
         toolbar.setNavigationOnClickListener(view -> {
@@ -100,31 +116,60 @@ public class fragment_editar_usuario extends Fragment {
         });
 
         loadingProgressBar = root.findViewById(R.id.loadingUser);
-        usuario = root.findViewById(R.id.campousuarioeditar);
+        usuario =  root.findViewById(R.id.campousuarioeditar);
         contrasenia = root.findViewById(R.id.contraeditar);
-        contrasenia2 = root.findViewById(R.id.confirmarcontraeditar);
+        contrasenia2 = root.findViewById(R.id.confirmarcontraseniaeditar);
         admin = root.findViewById(R.id.checkadmin);
         btnguardaruser = root.findViewById(R.id.btnmodificaruser);
 
-        btnguardaruser.setOnClickListener(View -> {
+        Admin = admin.isChecked();
 
+        btnguardaruser.setOnClickListener(View -> {
+            if(validarEmail(usuario.getText().toString())){
+                if(contrasenia.getText().toString().compareTo(contrasenia2.getText().toString())==0){
+                    crearUsuario();
+                }else{
+                    Toast.makeText(getContext(),"Las contraseñas no son iguales", Toast.LENGTH_SHORT).show();
+                }
+            }else{
+                Toast.makeText(getContext(),"Email no valido", Toast.LENGTH_SHORT).show();
+            }
         });
 
 
         return root;
     }
 
-    private void nuevaHerramienta( Herramientas herramientaNueva){
+    private void crearUsuario(){
+        mAuth.createUserWithEmailAndPassword(usuario.getText().toString(), contrasenia.getText().toString())
+                .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            UserType usuarioNuevo = new UserType(usuario.getText().toString(), Admin, user.getUid(), usuario.getText().toString());
+                            nuevoUsuario(usuarioNuevo);
+                            Toast.makeText(getContext(), "Registro Exitoso",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "Error en el registro",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    private void nuevoUsuario( UserType usuarioNuevo ){
         loadingProgressBar.setVisibility(View.VISIBLE);
-        firestore.collection("Herramientas")
-                .add(herramientaNueva)
+        firestore.collection("UsersType")
+                .add(usuarioNuevo)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        /*nombre_herramienta.setText("");
-                        descherramienta.setText("");
-                        cantidad_herramienta.setText("");
-                        loadingProgressBar.setVisibility(View.GONE);*/
+                        usuario.setText("");
+                        contrasenia.setText("");
+                        contrasenia2.setText("");
+                        loadingProgressBar.setVisibility(View.GONE);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -135,8 +180,15 @@ public class fragment_editar_usuario extends Fragment {
                 });
     }
 
+    private boolean validarEmail(String email){
+        Pattern pattern = Patterns.EMAIL_ADDRESS;
+        return pattern.matcher(email).matches();
+    }
+
     private void iniciarFireBase(){
         FirebaseApp.initializeApp(getContext());
+        mAuth = FirebaseAuth.getInstance();
+        firebaseDB = FirebaseDatabase.getInstance();
         firestore = FirebaseFirestore.getInstance();
     }
 }

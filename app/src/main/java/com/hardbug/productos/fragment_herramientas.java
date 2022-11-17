@@ -5,6 +5,7 @@ import static android.app.Activity.RESULT_OK;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -34,9 +35,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.hardbug.productos.model.Herramientas;
 import com.hardbug.productos.model.UserType;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -61,6 +66,8 @@ public class fragment_herramientas extends Fragment {
 
     //VAriables propias
     private FirebaseFirestore firestore;
+    private FirebaseStorage storage;
+    private StorageReference storageRef;
 
     Button btnguardarherramienta, tomarfoto;
     public String img;
@@ -71,6 +78,9 @@ public class fragment_herramientas extends Fragment {
     com.google.android.material.textfield.TextInputEditText nombre_herramienta;
     com.google.android.material.textfield.TextInputEditText descherramienta;
     com.google.android.material.textfield.TextInputEditText cantidad_herramienta;
+
+
+    private Bitmap imgBitMap;
 
     ProgressBar loadingProgressBar;
 
@@ -157,27 +167,36 @@ public class fragment_herramientas extends Fragment {
         btnguardarherramienta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String code = "";
                 String description = "";
                 Date fecha =  new Date();
                 int count = 0;
-
                 code = nombre_herramienta.getText().toString();
                 description = descherramienta.getText().toString();
                 count = Integer.parseInt(cantidad_herramienta.getText().toString());
 
                 Herramientas herramientaNueva = new Herramientas(code, description, fecha, count);
-                nuevaHerramienta(herramientaNueva);
+
+                if(herramienta.isChecked()){
+                    nuevaHerramienta(herramientaNueva,"Herramientas");
+                }else{
+                    nuevaHerramienta(herramientaNueva,"Consumibles");
+                }
 
             }
         });
         return root;
     }
 
+<<<<<<< HEAD
 
     private void nuevaHerramienta( Herramientas herramientaNueva){
+=======
+    private void nuevaHerramienta( Herramientas herramientaNueva, String collection){
+>>>>>>> 1fc633d873c10502108057d1c7968359c6f5477a
         loadingProgressBar.setVisibility(View.VISIBLE);
-        firestore.collection("Herramientas")
+        firestore.collection(collection)
                 .add(herramientaNueva)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
@@ -185,6 +204,9 @@ public class fragment_herramientas extends Fragment {
                         nombre_herramienta.setText("");
                         descherramienta.setText("");
                         cantidad_herramienta.setText("");
+
+                        SubirImagen(documentReference.getId());
+                        imagen.setImageBitmap(null);
                         loadingProgressBar.setVisibility(View.GONE);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -195,6 +217,35 @@ public class fragment_herramientas extends Fragment {
                     }
                 });
     }
+
+    private void SubirImagen(String id){
+        StorageReference imagensr = storageRef.child(id+".jpg");
+        StorageReference ImagesRefsr = storageRef.child("images/"+id+".jpg");
+
+        imagen.setDrawingCacheEnabled(true);
+        imagen.buildDrawingCache();
+        Bitmap bitmap = ((BitmapDrawable) imagen.getDrawable()).getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = imagensr.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                // ...
+            }
+        });
+
+
+    }
+
     private void abrirCamara() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
@@ -217,8 +268,9 @@ public class fragment_herramientas extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
             //Bundle extras = data.getExtras();
-            Bitmap imgBitMap = BitmapFactory.decodeFile(rutaImagen);
+            imgBitMap = BitmapFactory.decodeFile(rutaImagen);
             imagen.setImageBitmap(imgBitMap);
+            imagen.setRotation(90);
 
         }
     }
@@ -256,5 +308,7 @@ public class fragment_herramientas extends Fragment {
     private void iniciarFireBase(){
         FirebaseApp.initializeApp(getContext());
         firestore = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
+        storageRef = storage.getReference();
     }
 }

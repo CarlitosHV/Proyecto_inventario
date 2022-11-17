@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Productos</string>
     <string name="label_login">Iniciar sesión</string>
-    <string name="usuario">Escribe tu usuario</string>
+    <string name="usuario">Escribe tu correo</string>
     <string name="nombre">Usuario</string>
     <string name="fechaprestamo">Fecha préstamo</string>
     <string name="fechadevuelto">Fecha de devolución</string>
@@ -47,7 +47,7 @@
     <string name="labelprod">Producto</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="registrar">Abrir Cuenta</string>
+    <string name="registrar">Crear Cuenta</string>
     <string name="imagenusuario" />
     <string name="confirmarcontrasena">Confirmar contraseña</string>
     <string name="checkadmineditar">Convertir a administrador</string>

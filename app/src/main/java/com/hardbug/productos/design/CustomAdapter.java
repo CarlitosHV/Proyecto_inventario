@@ -9,16 +9,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hardbug.productos.R;
-import com.hardbug.productos.model.ListaProds;
+import com.hardbug.productos.model.ListaUsers;
 
 import java.util.ArrayList;
 
 public class CustomAdapter extends BaseAdapter {
 
     private final Context context;
-    private final ArrayList<ListaProds> listaProds;
+    private final ArrayList<ListaUsers> listaProds;
 
-    public CustomAdapter(Context context, ArrayList<ListaProds> listaProds) {
+    public CustomAdapter(Context context, ArrayList<ListaUsers> listaProds) {
         this.context = context;
         this.listaProds = listaProds;
     }
@@ -50,7 +50,7 @@ public class CustomAdapter extends BaseAdapter {
             holderView = (HolderView) convertView.getTag();
         }
 
-        ListaProds lista = listaProds.get(position);
+        ListaUsers lista = listaProds.get(position);
         holderView.listaiconos.setImageResource(lista.getIconoprod());
         holderView.productname.setText(lista.getNomprod());
         return convertView;

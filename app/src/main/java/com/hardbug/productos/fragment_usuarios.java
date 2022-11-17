@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.hardbug.productos.design.CustomAdapter;
+import com.hardbug.productos.design.UserTypeCAdapter;
 import com.hardbug.productos.model.ListaUsers;
 import com.hardbug.productos.model.UserType;
 
@@ -154,10 +155,7 @@ public class fragment_usuarios extends Fragment implements AdapterView.OnItemCli
                                 usuarios.add(usuario);
 
                             }
-                            for (int y = 0; y < usuarios.size(); y++){
-                                listau.add(new ListaUsers(R.drawable.ic_productoname, usuarios.get(y).getName()));
-                            }
-                            CustomAdapter customAdapter = new CustomAdapter(getContext(), listau);
+                            UserTypeCAdapter customAdapter = new UserTypeCAdapter(getContext(), usuarios);
                             listView.setAdapter(customAdapter);
                             //listView.setOnItemClickListener(getContext());
                         }

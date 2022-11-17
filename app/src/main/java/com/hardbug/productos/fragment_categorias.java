@@ -60,6 +60,7 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
     private FirebaseDatabase firebaseDB;
     private FirebaseFirestore firestore;
 
+    ListView listView;
     private List<Herramientas> ListarHerramientas = new ArrayList<>();
     public static UserType UserSys;
     ArrayList<String> listaHerramientas = new ArrayList<String>();
@@ -114,8 +115,7 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
 
         iniciarFireBase();
         LLamarHerramienta();
-        listah = seticonandname();
-        ListView listView = root.findViewById(R.id.custom_list_view_categorias);
+        listView = root.findViewById(R.id.custom_list_view_categorias);
         CustomAdapterCategorias customAdapter = new CustomAdapterCategorias(getContext(), listah);
         listView.setAdapter(customAdapter);
         listView.setOnItemClickListener(this);
@@ -160,6 +160,11 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
                                 //herramientasM.setFecha(FECHA);
                                 herramientas.add(herramientasM);
                             }
+                            for (int y = 0; y < herramientas.size(); y++){
+                                listah.add(new ListaHerramientas(herramientas.get(y).getCode()));
+                            }
+                            CustomAdapterCategorias customAdapter = new CustomAdapterCategorias(getContext(), listah);
+                            listView.setAdapter(customAdapter);
                         }
                     }
                 });

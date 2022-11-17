@@ -3,22 +3,45 @@ package com.hardbug.productos;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.hardbug.productos.design.CustomAdapter;
+import com.hardbug.productos.design.CustomAdapterCategorias;
+import com.hardbug.productos.model.Herramientas;
+import com.hardbug.productos.model.ListaHerramientas;
+import com.hardbug.productos.model.ListaUsers;
+import com.hardbug.productos.model.UserType;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link fragment_categorias#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_categorias extends Fragment {
+public class fragment_categorias extends Fragment implements AdapterView.OnItemClickListener{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,6 +55,18 @@ public class fragment_categorias extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase firebaseDB;
+    private FirebaseFirestore firestore;
+
+    ListView listView;
+    private List<Herramientas> ListarHerramientas = new ArrayList<>();
+    public static UserType UserSys;
+    ArrayList<String> listaHerramientas = new ArrayList<String>();
+    ArrayList<ListaHerramientas> listah = new ArrayList<ListaHerramientas>();
+    ArrayAdapter<Herramientas> herramientasArrayAdapter;
+    ArrayList<Herramientas> herramientas = new ArrayList<>();
 
     public fragment_categorias() {
         // Required empty public constructor
@@ -55,6 +90,15 @@ public class fragment_categorias extends Fragment {
         return fragment;
     }
 
+    private ArrayList<ListaHerramientas> seticonandname(){
+        herramientas = new ArrayList<>();
+        for (int i = 0; i < herramientas.size(); i++){
+            //cargarImagen(imagenes.get(i));
+            listah.add(new ListaHerramientas(herramientas.get(i).getCode()));
+        }
+        return listah;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +112,13 @@ public class fragment_categorias extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_categorias, container, false);
+
+        iniciarFireBase();
+        LLamarHerramienta();
+        listView = root.findViewById(R.id.custom_list_view_categorias);
+        CustomAdapterCategorias customAdapter = new CustomAdapterCategorias(getContext(), listah);
+        listView.setAdapter(customAdapter);
+        listView.setOnItemClickListener(this);
 
         toolbar = root.findViewById(R.id.toolbarcateprods);
         toolbar.setNavigationIcon(R.drawable.ic_back);
@@ -86,6 +137,49 @@ public class fragment_categorias extends Fragment {
             fragmentTransaction.commit();
         });
 
+
+
         return root;
+    }
+
+    public void LLamarHerramienta() {
+
+        firestore.collection("Herramientas")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Map<String, Object> obj = document.getData();
+                                Herramientas herramientasM = new Herramientas();
+                                herramientasM.setCode(obj.get("code").toString());
+                                herramientasM.setCount(Integer.parseInt(obj.get("count").toString()));
+                                herramientasM.setDescripcion(obj.get("descripcion").toString());
+                                //Date FECHA = new Date(obj.get("fecha")+"");
+                                //herramientasM.setFecha(FECHA);
+                                herramientas.add(herramientasM);
+                            }
+                            for (int y = 0; y < herramientas.size(); y++){
+                                listah.add(new ListaHerramientas(herramientas.get(y).getCode()));
+                            }
+                            CustomAdapterCategorias customAdapter = new CustomAdapterCategorias(getContext(), listah);
+                            listView.setAdapter(customAdapter);
+                        }
+                    }
+                });
+    }
+
+    private void iniciarFireBase() {
+        FirebaseApp.initializeApp(getContext());
+        mAuth = FirebaseAuth.getInstance();
+        firebaseDB = FirebaseDatabase.getInstance();
+        firestore = FirebaseFirestore.getInstance();
+    }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
     }
 }

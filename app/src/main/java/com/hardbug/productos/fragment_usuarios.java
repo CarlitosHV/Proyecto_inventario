@@ -53,7 +53,8 @@ public class fragment_usuarios extends Fragment implements AdapterView.OnItemCli
     ArrayList<String> listaUsers = new ArrayList<String>();
     ArrayList<ListaUsers> listau = new ArrayList<ListaUsers>();
     ArrayAdapter<UserType> userArrayAdapter;
-    ArrayList<UserType> usuarios = new ArrayList<>();
+
+    ListView listView;
 
     private FirebaseDatabase firebaseDB;
     private FirebaseFirestore firestore;
@@ -84,14 +85,14 @@ public class fragment_usuarios extends Fragment implements AdapterView.OnItemCli
         return fragment;
     }
 
-    private ArrayList<ListaUsers> seticonandname(){
+    /*private ArrayList<ListaUsers> seticonandname(){
         usuarios = new ArrayList<>();
         for (int i = 0; i < usuarios.size(); i++){
             //cargarImagen(imagenes.get(i));
             listau.add(new ListaUsers(R.drawable.ic_productoname, usuarios.get(i).getName()));
         }
         return listau;
-    }
+    }*/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,12 +109,12 @@ public class fragment_usuarios extends Fragment implements AdapterView.OnItemCli
         View root = inflater.inflate(R.layout.fragment_usuarios, container, false);
 
         iniciarFireBase();
+        //listau = seticonandname();
+        listView = root.findViewById(R.id.custom_list_view_usuarios);
         LLamarUsuario();
-        listau = seticonandname();
-        ListView listView = root.findViewById(R.id.custom_list_view_usuarios);
-        CustomAdapter customAdapter = new CustomAdapter(getContext(), listau);
-        listView.setAdapter(customAdapter);
-        listView.setOnItemClickListener(this);
+        //CustomAdapter customAdapter = new CustomAdapter(getContext(), listau);
+        //listView.setAdapter(customAdapter);
+        //listView.setOnItemClickListener(this);
 
         toolbar = root.findViewById(R.id.toolbarusuarios);
         toolbar.setNavigationIcon(R.drawable.ic_back);
@@ -136,7 +137,7 @@ public class fragment_usuarios extends Fragment implements AdapterView.OnItemCli
     }
 
     public void LLamarUsuario() {
-
+        ArrayList<UserType> usuarios = new ArrayList<>();
         firestore.collection("UsersType")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -151,7 +152,14 @@ public class fragment_usuarios extends Fragment implements AdapterView.OnItemCli
                                 usuario.setTipo((Boolean) obj.get("tipo"));
                                 usuario.setName(obj.get("name").toString());
                                 usuarios.add(usuario);
+
                             }
+                            for (int y = 0; y < usuarios.size(); y++){
+                                listau.add(new ListaUsers(R.drawable.ic_productoname, usuarios.get(y).getName()));
+                            }
+                            CustomAdapter customAdapter = new CustomAdapter(getContext(), listau);
+                            listView.setAdapter(customAdapter);
+                            //listView.setOnItemClickListener(getContext());
                         }
                     }
                 });

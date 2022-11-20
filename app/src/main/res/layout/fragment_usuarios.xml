@@ -27,11 +27,16 @@
                     app:title="@string/usuarios"/>
             </com.google.android.material.appbar.AppBarLayout>
 
-            <ListView
-                android:id="@+id/custom_list_view_usuarios"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="600dp"
-                android:dividerHeight="2dp" />
+                android:layout_height="match_parent">
+                <ListView
+                    android:id="@+id/custom_list_view_usuarios"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:dividerHeight="2dp" />
+            </ScrollView>
+            
         </LinearLayout>
 
     </ScrollView>

@@ -1,5 +1,6 @@
 package com.hardbug.productos;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -12,7 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,6 +31,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.hardbug.productos.design.CustomAdapter;
 import com.hardbug.productos.design.CustomAdapterCategorias;
+import com.hardbug.productos.model.Consumibles;
 import com.hardbug.productos.model.Herramientas;
 import com.hardbug.productos.model.ListaHerramientas;
 import com.hardbug.productos.model.ListaUsers;
@@ -59,14 +65,20 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
     private FirebaseAuth mAuth;
     private FirebaseDatabase firebaseDB;
     private FirebaseFirestore firestore;
+    ImageButton btnherramienta, btnconsumible;
 
     ListView listView;
     private List<Herramientas> ListarHerramientas = new ArrayList<>();
-    public static UserType UserSys;
+
+
+    Boolean banderah = false, banderac = false;
     ArrayList<String> listaHerramientas = new ArrayList<String>();
     ArrayList<ListaHerramientas> listah = new ArrayList<ListaHerramientas>();
-    ArrayAdapter<Herramientas> herramientasArrayAdapter;
+    ArrayList<ListaHerramientas> listac = new ArrayList<ListaHerramientas>();
+    ArrayList<ListaHerramientas> listageneral = new ArrayList<ListaHerramientas>();
     ArrayList<Herramientas> herramientas = new ArrayList<>();
+    ArrayList<Herramientas> consumibles = new ArrayList<>();
+    ArrayList<Herramientas> generales = new ArrayList<>();
 
     public fragment_categorias() {
         // Required empty public constructor
@@ -115,16 +127,29 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
 
         iniciarFireBase();
         LLamarHerramienta();
+        LLamarConsumible();
         listView = root.findViewById(R.id.custom_list_view_categorias);
-        CustomAdapterCategorias customAdapter = new CustomAdapterCategorias(getContext(), listah);
+        btnconsumible = root.findViewById(R.id.btnConsumibles);
+        btnherramienta = root.findViewById(R.id.btnherramientas);
+        CustomAdapterCategorias customAdapter = new CustomAdapterCategorias(getContext(), listageneral);
         listView.setAdapter(customAdapter);
-        listView.setOnItemClickListener(this);
+        listView.setOnItemClickListener(this::onItemClick);
 
         toolbar = root.findViewById(R.id.toolbarcateprods);
         toolbar.setNavigationIcon(R.drawable.ic_back);
         toolbar.setNavigationOnClickListener(view -> {
             Intent intent = new Intent(getContext(), MainActivity.class);
             startActivity(intent);
+        });
+
+        btnherramienta.setOnClickListener(View -> {
+            CustomAdapterCategorias adapterHerramientas = new CustomAdapterCategorias(getContext(), listah);
+            listView.setAdapter(adapterHerramientas);
+        });
+
+        btnconsumible.setOnClickListener(View -> {
+            CustomAdapterCategorias adapterConsumibles = new CustomAdapterCategorias(getContext(), listac);
+            listView.setAdapter(adapterConsumibles);
         });
 
         add = root.findViewById(R.id.fabcategorias);
@@ -143,7 +168,6 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
     }
 
     public void LLamarHerramienta() {
-
         firestore.collection("Herramientas")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -159,11 +183,42 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
                                 //Date FECHA = new Date(obj.get("fecha")+"");
                                 //herramientasM.setFecha(FECHA);
                                 herramientas.add(herramientasM);
+                                generales.add(herramientasM);
                             }
                             for (int y = 0; y < herramientas.size(); y++){
                                 listah.add(new ListaHerramientas(herramientas.get(y).getCode()));
+                                listageneral.add(new ListaHerramientas(herramientas.get(y).getCode()));
                             }
-                            CustomAdapterCategorias customAdapter = new CustomAdapterCategorias(getContext(), listah);
+                            CustomAdapterCategorias customAdapter = new CustomAdapterCategorias(getContext(), listageneral);
+                            listView.setAdapter(customAdapter);
+                        }
+                    }
+                });
+    }
+
+    public void LLamarConsumible() {
+        firestore.collection("Consumibles")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Map<String, Object> obj = document.getData();
+                                Herramientas herra = new Herramientas();
+                                herra.setCode(obj.get("code").toString());
+                                herra.setCount(Integer.parseInt(obj.get("count").toString()));
+                                herra.setDescripcion(obj.get("descripcion").toString());
+                                //Date FECHA = new Date(obj.get("fecha")+"");
+                                //herramientasM.setFecha(FECHA);
+                                consumibles.add(herra);
+                                generales.add(herra);
+                            }
+                            for (int y = 0; y < consumibles.size(); y++){
+                                listac.add(new ListaHerramientas(consumibles.get(y).getCode()));
+                                listageneral.add(new ListaHerramientas(consumibles.get(y).getCode()));
+                            }
+                            CustomAdapterCategorias customAdapter = new CustomAdapterCategorias(getContext(), listageneral);
                             listView.setAdapter(customAdapter);
                         }
                     }
@@ -180,6 +235,6 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+        Toast.makeText(getContext(), "Hola", Toast.LENGTH_SHORT).show();
     }
 }

@@ -39,6 +39,7 @@
                 android:layout_marginBottom="25dp"
                 android:contentDescription="@string/fotoherramienta"/>
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -59,6 +60,7 @@
                     android:layout_marginStart="75dp"/>
             </LinearLayout>
 
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,14 +68,14 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginEnd="25dp"
                 app:endIconMode="clear_text"
-                app:startIconContentDescription="@string/nombreherramienta"
+                app:startIconContentDescription="@string/Codigo"
                 app:startIconDrawable="@drawable/ic_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/nombre_herramienta"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/nombreherramienta"
+                    android:hint="@string/Codigo"
                     android:inputType="textPersonName"
                     tools:layout_editor_absoluteX="16dp"/>
             </com.google.android.material.textfield.TextInputLayout>

@@ -2,6 +2,7 @@
     <string name="app_name">Productos</string>
     <string name="label_login">Iniciar sesión</string>
     <string name="usuario">Escribe tu correo</string>
+    <string name="usuario2">Escribe tu usuario</string>
     <string name="nombre">Usuario</string>
     <string name="fechaprestamo">Fecha préstamo</string>
     <string name="fechadevuelto">Fecha de devolución</string>

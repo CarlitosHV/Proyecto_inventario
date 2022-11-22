@@ -8,6 +8,7 @@ public class Herramientas {
     private String descripcion;
     private Date fecha;
     private int count;
+    private String id;
 
     public Herramientas() {
     }
@@ -19,7 +20,13 @@ public class Herramientas {
         this.setCount(count);
     }
 
-
+    public Herramientas(String code, String descripcion, Date fecha, int count, String id) {
+        this.setCode(code);
+        this.setDescripcion(descripcion);
+        this.setFecha(fecha);
+        this.setCount(count);
+        this.setId(id);
+    }
 
     public String getCode() {
         return code;
@@ -51,5 +58,13 @@ public class Herramientas {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

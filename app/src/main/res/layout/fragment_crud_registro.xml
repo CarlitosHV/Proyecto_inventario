@@ -6,10 +6,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment_crud_registro">
 
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -78,45 +78,56 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <ListView
-                android:id="@+id/custom_list_view_registros"
-                android:layout_width="match_parent"
-                android:layout_height="550dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginBottom="50dp"
-                android:dividerHeight="2dp" />
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp">
+
+                    <ListView
+                        android:id="@+id/custom_list_view_herramientas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginBottom="50dp"
+                        android:dividerHeight="2dp" />
+                </ScrollView>
+            </LinearLayout>
+
+
+                <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/btnconfiguracionAceptar"
-                    style="@style/Widget.Material3.Button.ElevatedButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="40dp"
-                    android:text="@string/configuracionAceptar"
-                    android:textSize="20sp"
-                    app:icon="@drawable/ic_ok" />
+                    <Button
+                        android:id="@+id/btnconfiguracionAceptar"
+                        style="@style/Widget.Material3.Button.ElevatedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="40dp"
+                        android:text="@string/configuracionAceptar"
+                        android:textSize="20sp"
+                        app:icon="@drawable/ic_ok" />
 
-                <Button
-                    android:id="@+id/btnconfiguracionCancelar"
-                    style="@style/Widget.Material3.Button.ElevatedButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginTop="40dp"
-                    android:text="@string/configuracionCancelar"
-                    android:textSize="20sp"
-                    app:icon="@drawable/ic_cancela" />
-            </LinearLayout>
-
+                    <Button
+                        android:id="@+id/btnconfiguracionCancelar"
+                        style="@style/Widget.Material3.Button.ElevatedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="40dp"
+                        android:text="@string/configuracionCancelar"
+                        android:textSize="20sp"
+                        app:icon="@drawable/ic_cancela" />
+                </LinearLayout>
         </LinearLayout>
-
-
     </ScrollView>
-
 </FrameLayout>

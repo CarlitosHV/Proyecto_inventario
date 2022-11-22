@@ -59,8 +59,10 @@
     <string name="adminconfiguracion"> Configuración </string>
     //Strings para el cardview de usuarios
     <string name="nombre_usuarios"> Usuario </string>
+    <string name="nombre_herramienta"> Herramienta </string>
     <string name="boton_confirmar"> Confirmar </string>
     <string name="boton_cancelar"> Cancelar </string>
+    <string name="boton_quitar"> Quitar </string>
     <string name="boton_olvidepass"> ¿Olvidaste tu contraseña? </string>
     <string name="nuevacuenta"> ¿No tiene una cuenta? </string>
     //Strings para el cardview de categorías

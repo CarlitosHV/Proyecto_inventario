@@ -42,51 +42,15 @@
                     android:id="@+id/nombre_cliente"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/configuracionNombre"
+                    android:hint="@string/configuracionCorreo"
                     android:inputType="textPersonName"
                     tools:layout_editor_absoluteX="16dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="25dp"
-                app:endIconMode="clear_text"
-                app:startIconContentDescription="@string/configuracionNombre"
-                app:startIconDrawable="@drawable/ic_correo">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/correo_cliente"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/configuracionCorreo"
-                    android:inputType="textEmailAddress"
-                    tools:layout_editor_absoluteX="16dp" />
 
-            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="25dp"
-                app:endIconMode="password_toggle"
-                app:startIconContentDescription="@string/configuracionPassword"
-                app:startIconDrawable="@drawable/ic_password">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/password_cliente"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/configuracionConfirmarPass"
-                    android:inputType="textPassword"
-                    tools:layout_editor_absoluteX="16dp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"

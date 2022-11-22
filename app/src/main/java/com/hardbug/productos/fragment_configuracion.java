@@ -1,11 +1,13 @@
 package com.hardbug.productos;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.hardbug.productos.model.UserType;
@@ -49,7 +52,10 @@ public class fragment_configuracion extends Fragment {
     //Variables propias
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
     Button btnconfiguracionAceptar;
+
 
     com.google.android.material.textfield.TextInputEditText nuevo_nombre;
     com.google.android.material.textfield.TextInputEditText nuevo_correo;
@@ -102,75 +108,51 @@ public class fragment_configuracion extends Fragment {
             startActivity(intent);
         });
 
-        loadingProgressBar = root.findViewById(R.id.loadingConfig);
-        nuevo_nombre = root.findViewById(R.id.nombre_cliente);
-        nuevo_correo = root.findViewById(R.id.correo_cliente);
-        nueva_contrasenia = root.findViewById(R.id.password_cliente);
-        confirmar_contrasenia = root.findViewById(R.id.confirmarpassword_cliente);
+
+        nuevo_correo = root.findViewById(R.id.correo_cliente);/////
+        nueva_contrasenia = root.findViewById(R.id.password_cliente);/////
+
 
         btnconfiguracionAceptar = root.findViewById(R.id.btnconfiguracionAceptar);
-
-        btnconfiguracionAceptar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(validarEmail(nuevo_correo.getText().toString())){
-                    if(nueva_contrasenia.getText().toString().compareTo(confirmar_contrasenia.getText().toString())==0){
-                        ModificarUsuario();
-                    }else{
-                        Toast.makeText(getContext(),"Las contraseñas no son iguales", Toast.LENGTH_SHORT).show();
-                    }
-                }else{
-                    Toast.makeText(getContext(),"Email no valido", Toast.LENGTH_SHORT).show();
-                }
-            }
+        btnconfiguracionAceptar.setOnClickListener(View ->{
+            updatePasword();
+            updateEmail();
         });
+
+
 
         return root;
     }
 
 
 
-
-
-
-    private void ModificarUsuario(UserType modificarUsuario){
-        firestore.collection("UsersType")
-                .whereEqualTo("id",MainActivity.UserSys.getID())
-                .add(modificarUsuario)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+    public void updateEmail() {
+        user.updateEmail(nuevo_correo.getText().toString())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        //
-
-
-
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getContext(), "Correo modificado",
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }).addOnFailureListener(new OnFailureListener() {
+                });
+    }
+
+    public void updatePasword(){
+        user.updatePassword(nueva_contrasenia.getText().toString())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), "Error en el registro",
-                                Toast.LENGTH_SHORT).show();
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getContext(), "Contraseña modificado",
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    private boolean validarEmail(String email){
-        Pattern pattern = Patterns.EMAIL_ADDRESS;
-        return pattern.matcher(email).matches();
-    }
 
 
     private void iniciarFireBase(){

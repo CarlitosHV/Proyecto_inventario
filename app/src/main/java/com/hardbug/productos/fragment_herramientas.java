@@ -189,12 +189,10 @@ public class fragment_herramientas extends Fragment {
         return root;
     }
 
-<<<<<<< HEAD
 
-    private void nuevaHerramienta( Herramientas herramientaNueva){
-=======
+
     private void nuevaHerramienta( Herramientas herramientaNueva, String collection){
->>>>>>> 1fc633d873c10502108057d1c7968359c6f5477a
+
         loadingProgressBar.setVisibility(View.VISIBLE);
         firestore.collection(collection)
                 .add(herramientaNueva)

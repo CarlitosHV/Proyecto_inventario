@@ -137,6 +137,7 @@ public class fragment_herramientas extends Fragment {
         nombre_herramienta = root.findViewById(R.id.nombre_herramienta);
         descherramienta = root.findViewById(R.id.descherramienta);
         cantidad_herramienta = root.findViewById(R.id.cantidad_herramienta);
+
         imagen = root.findViewById(R.id.ivFotoherra);
         tomarfoto = root.findViewById(R.id.btntomarfotoherramienta);
 
@@ -158,7 +159,11 @@ public class fragment_herramientas extends Fragment {
             abrirCamara();
         });
 
+
         btnguardarherramienta = root.findViewById(R.id.btnguardarherramienta);
+
+
+
         btnguardarherramienta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -184,7 +189,10 @@ public class fragment_herramientas extends Fragment {
         return root;
     }
 
+
+
     private void nuevaHerramienta( Herramientas herramientaNueva, String collection){
+
         loadingProgressBar.setVisibility(View.VISIBLE);
         firestore.collection(collection)
                 .add(herramientaNueva)
@@ -272,6 +280,27 @@ public class fragment_herramientas extends Fragment {
         rutaImagen = imagen.getAbsolutePath();
         img = rutaImagen;
         return imagen;
+    }
+
+    private void nuevoConsumibe(Herramientas consumibleNuevo){
+        loadingProgressBar.setVisibility(View.VISIBLE);
+        firestore.collection("Herramientas")
+                .add(consumibleNuevo)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        nombre_herramienta.setText("");
+                        descherramienta.setText("");
+                        cantidad_herramienta.setText("");
+                        loadingProgressBar.setVisibility(View.GONE);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(), "Error en el registro",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void iniciarFireBase(){

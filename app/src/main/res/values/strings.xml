@@ -89,4 +89,5 @@
     <string name="cantidadherramienta">Cantidad</string>
     <string name="fotoherramienta">Foto Herramienta</string>
     <string name="headerherramienta">Agregar herramienta</string>
+    <string name="Codigo">Codigo</string>
 </resources>

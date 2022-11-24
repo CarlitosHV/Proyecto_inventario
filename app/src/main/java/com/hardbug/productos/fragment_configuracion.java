@@ -52,7 +52,7 @@ public class fragment_configuracion extends Fragment {
     //Variables propias
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseUser user;
 
     Button btnconfiguracionAceptar;
 
@@ -109,8 +109,8 @@ public class fragment_configuracion extends Fragment {
         });
 
 
-        nuevo_correo = root.findViewById(R.id.correo_cliente);/////
-        nueva_contrasenia = root.findViewById(R.id.password_cliente);/////
+        nuevo_correo = root.findViewById(R.id.nombre_cliente);/////
+        nueva_contrasenia = root.findViewById(R.id.confirmarpassword_cliente);/////
 
 
         btnconfiguracionAceptar = root.findViewById(R.id.btnconfiguracionAceptar);
@@ -127,35 +127,45 @@ public class fragment_configuracion extends Fragment {
 
 
     public void updateEmail() {
-        user.updateEmail(nuevo_correo.getText().toString())
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(getContext(), "Correo modificado",
-                                    Toast.LENGTH_SHORT).show();
+        String email = nuevo_correo.getText().toString().trim();
+        UserProfileChangeRequest perfil = new UserProfileChangeRequest.Builder().build();
+        if(email.length() > 0){
+            user.updateEmail(email)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful ()) {
+                                Toast.makeText (getContext(), "Mail Updated", Toast.LENGTH_SHORT).show ();
+                            } else {
+                                Exception e = task.getException();
+                                Toast.makeText (getContext(), "Error updating email: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Log.w("updateEmail", "Unable to update email", e);
+                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public void updatePasword(){
-        user.updatePassword(nueva_contrasenia.getText().toString())
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(getContext(), "Contraseña modificado",
-                                    Toast.LENGTH_SHORT).show();
+        String contra = nueva_contrasenia.getText().toString().trim();
+        if(contra.length() > 0){
+            user.updatePassword(contra)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(getContext(), "Contraseña modificado",
+                                        Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+        }
+
     }
 
 
-
-
     private void iniciarFireBase(){
+        user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseApp.initializeApp(getContext());
         firestore = FirebaseFirestore.getInstance();
     }

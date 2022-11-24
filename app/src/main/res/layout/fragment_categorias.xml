@@ -52,7 +52,6 @@
                     android:background="@drawable/ic_consumibles" />
 
             </LinearLayout>
-
             <ListView
                 android:id="@+id/custom_list_view_categorias"
                 android:layout_width="match_parent"

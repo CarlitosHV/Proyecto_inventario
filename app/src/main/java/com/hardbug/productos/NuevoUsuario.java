@@ -34,6 +34,7 @@ public class NuevoUsuario extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDB;
     private FirebaseFirestore firestore;
+    private FirebaseUser user;
 
     private com.google.android.material.textfield.TextInputEditText usuario;
     private com.google.android.material.textfield.TextInputEditText name;
@@ -116,6 +117,7 @@ public class NuevoUsuario extends AppCompatActivity {
     private void iniciarFireBase(){
         FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
         firebaseDB = FirebaseDatabase.getInstance();
         firestore = FirebaseFirestore.getInstance();
     }

@@ -182,13 +182,12 @@ public class fragment_configuracion extends Fragment implements LocationListener
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(getContext(), "Contraseña modificado",
-                                        Toast.LENGTH_SHORT).show();
+                            if(task.isSuccessful()){
+                                Toast.makeText(getContext(), "Contraseña actualizada",Toast.LENGTH_SHORT).show();
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     @Override

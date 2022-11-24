@@ -5,6 +5,7 @@ public class UserType {
     private String email;
     private boolean tipo;
     private String ID;
+    private String IDD;
     private String name;
 
     public UserType() {
@@ -48,5 +49,13 @@ public class UserType {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getIDD() {
+        return IDD;
+    }
+
+    public void setIDD(String IDD) {
+        this.IDD = IDD;
     }
 }

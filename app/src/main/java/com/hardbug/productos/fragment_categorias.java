@@ -124,7 +124,6 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_categorias, container, false);
-
         iniciarFireBase();
         LLamarHerramienta();
         LLamarConsumible();
@@ -133,7 +132,6 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
         btnherramienta = root.findViewById(R.id.btnherramientas);
         CustomAdapterCategorias customAdapter = new CustomAdapterCategorias(getContext(), listageneral);
         listView.setAdapter(customAdapter);
-        listView.setOnItemClickListener(this::onItemClick);
 
         toolbar = root.findViewById(R.id.toolbarcateprods);
         toolbar.setNavigationIcon(R.drawable.ic_back);
@@ -161,8 +159,6 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         });
-
-
 
         return root;
     }
@@ -231,7 +227,6 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
         firebaseDB = FirebaseDatabase.getInstance();
         firestore = FirebaseFirestore.getInstance();
     }
-
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

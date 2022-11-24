@@ -1,12 +1,21 @@
 package com.hardbug.productos;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.provider.SyncStateContract;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -14,8 +23,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.internal.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,13 +48,18 @@ import java.util.regex.Pattern;
  * Use the {@link fragment_configuracion#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_configuracion extends Fragment {
+public class fragment_configuracion extends Fragment implements LocationListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     MaterialToolbar toolbar;
+    TextView coordenadas;
+    protected LocationManager locationManager;
+    protected LocationListener locationListener;
+    protected Context context;
+    static int LOCATION_PERMISSION_REQUEST = 15;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -101,6 +117,7 @@ public class fragment_configuracion extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_configuracion, container, false);
         iniciarFireBase();
+        coordenadas = root.findViewById(R.id.coordenadas);
         toolbar = root.findViewById(R.id.toolbarconfiguracion);
         toolbar.setNavigationIcon(R.drawable.ic_back);
         toolbar.setNavigationOnClickListener(view -> {
@@ -108,7 +125,10 @@ public class fragment_configuracion extends Fragment {
             startActivity(intent);
         });
 
-
+        locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+        if (checkLocationPermission(getActivity())){
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        }
         nuevo_correo = root.findViewById(R.id.correo_cliente);/////
         nueva_contrasenia = root.findViewById(R.id.password_cliente);/////
 
@@ -152,12 +172,43 @@ public class fragment_configuracion extends Fragment {
                 });
     }
 
+    @Override
+    public void onLocationChanged(Location location) {
+        coordenadas.setText("Latitude:" + location.getLatitude() + ", Longitude:" + location.getLongitude());
+    }
 
+    @Override
+    public void onProviderDisabled(String provider) {
+        Log.d("Latitude","disable");
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+        Log.d("Latitude","enable");
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        Log.d("Latitude","status");
+    }
 
 
     private void iniciarFireBase(){
         FirebaseApp.initializeApp(getContext());
         firestore = FirebaseFirestore.getInstance();
+    }
+
+    public static boolean checkLocationPermission(Activity activity){
+        if(ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED){
+
+            ActivityCompat.requestPermissions(activity, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_REQUEST);
+            return false;
+        }
+        return true;
     }
 
 }

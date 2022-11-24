@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -101,6 +102,14 @@ public class fragment_crud_registro extends Fragment {
         View root = inflater.inflate(R.layout.fragment_crud_registro, container, false);
         listaHerramientas = root.findViewById(R.id.custom_list_view_herramientas);
         //listaConsumibles = root.findViewById(R.id.custom_list_view_consumibles);
+
+        listaHerramientas.setOnTouchListener(new View.OnTouchListener() {
+
+            public boolean onTouch(View v, MotionEvent event) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
 
         iniciarFireBase();
         llamarHerramientas();

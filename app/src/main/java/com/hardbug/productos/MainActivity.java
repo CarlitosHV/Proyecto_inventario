@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
                                 MainActivity.UserSys.setID(obj.get("id").toString());
                                 MainActivity.UserSys.setTipo((Boolean) obj.get("tipo"));
                                 MainActivity.UserSys.setName(obj.get("name").toString());
+                                MainActivity.UserSys.setIDD(document.getId());
                             }
                         }
                         if (MainActivity.UserSys != null) {

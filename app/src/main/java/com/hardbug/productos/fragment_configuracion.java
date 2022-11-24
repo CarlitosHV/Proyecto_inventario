@@ -68,7 +68,7 @@ public class fragment_configuracion extends Fragment implements LocationListener
     //Variables propias
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseUser user;
 
     Button btnconfiguracionAceptar;
 
@@ -125,12 +125,18 @@ public class fragment_configuracion extends Fragment implements LocationListener
             startActivity(intent);
         });
 
+<<<<<<< HEAD
         locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         if (checkLocationPermission(getActivity())){
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         }
         nuevo_correo = root.findViewById(R.id.correo_cliente);/////
         nueva_contrasenia = root.findViewById(R.id.password_cliente);/////
+=======
+
+        nuevo_correo = root.findViewById(R.id.nombre_cliente);/////
+        nueva_contrasenia = root.findViewById(R.id.confirmarpassword_cliente);/////
+>>>>>>> 974f8312fbcd0bdbbb85e4f43750869f5beab80a
 
 
         btnconfiguracionAceptar = root.findViewById(R.id.btnconfiguracionAceptar);
@@ -147,27 +153,47 @@ public class fragment_configuracion extends Fragment implements LocationListener
 
 
     public void updateEmail() {
-        user.updateEmail(nuevo_correo.getText().toString())
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(getContext(), "Correo modificado",
-                                    Toast.LENGTH_SHORT).show();
+        String email = nuevo_correo.getText().toString().trim();
+        UserProfileChangeRequest perfil = new UserProfileChangeRequest.Builder().build();
+        if(email.length() > 0){
+            user.updateEmail(email)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful ()) {
+                                Toast.makeText (getContext(), "Mail Updated", Toast.LENGTH_SHORT).show ();
+                                MainActivity.UserSys.setEmail(email);
+                                firestore.collection("UsersType").document(MainActivity.UserSys.getIDD())
+                                        .set(MainActivity.UserSys)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+
+                                            }
+                                        });
+                            } else {
+                                Exception e = task.getException();
+                                Toast.makeText (getContext(), "Error updating email: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Log.w("updateEmail", "Unable to update email", e);
+                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public void updatePasword(){
-        user.updatePassword(nueva_contrasenia.getText().toString())
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(getContext(), "Contraseña modificado",
-                                    Toast.LENGTH_SHORT).show();
+        String contra = nueva_contrasenia.getText().toString().trim();
+        if(contra.length() > 0){
+            user.updatePassword(contra)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(getContext(), "Contraseña modificado",
+                                        Toast.LENGTH_SHORT).show();
+                            }
                         }
+<<<<<<< HEAD
                     }
                 });
     }
@@ -190,10 +216,16 @@ public class fragment_configuracion extends Fragment implements LocationListener
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
         Log.d("Latitude","status");
+=======
+                    });
+        }
+
+>>>>>>> 974f8312fbcd0bdbbb85e4f43750869f5beab80a
     }
 
 
     private void iniciarFireBase(){
+        user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseApp.initializeApp(getContext());
         firestore = FirebaseFirestore.getInstance();
     }

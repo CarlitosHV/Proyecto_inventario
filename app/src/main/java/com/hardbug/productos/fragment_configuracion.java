@@ -136,6 +136,15 @@ public class fragment_configuracion extends Fragment {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful ()) {
                                 Toast.makeText (getContext(), "Mail Updated", Toast.LENGTH_SHORT).show ();
+                                MainActivity.UserSys.setEmail(email);
+                                firestore.collection("UsersType").document(MainActivity.UserSys.getIDD())
+                                        .set(MainActivity.UserSys)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+
+                                            }
+                                        });
                             } else {
                                 Exception e = task.getException();
                                 Toast.makeText (getContext(), "Error updating email: "+e.getMessage(), Toast.LENGTH_SHORT).show();

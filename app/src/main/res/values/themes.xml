@@ -15,4 +15,10 @@
         <item name="colorPrimarySurface"> @color/material_dynamic_tertiary99</item>
         <item name="colorOnSurfaceVariant"> @color/secondaryDarkColor</item>
     </style>
+    <style name="Theme.Productos.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.Productos.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.Productos.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

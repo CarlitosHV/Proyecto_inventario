@@ -1,6 +1,7 @@
 package com.hardbug.productos;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.SyncStateContract;
 import android.util.Log;
@@ -55,7 +57,9 @@ public class fragment_configuracion extends Fragment implements LocationListener
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     MaterialToolbar toolbar;
+    Button ver;
     TextView coordenadas;
+    public static double longi, lati;
     protected LocationManager locationManager;
     protected LocationListener locationListener;
     protected Context context;
@@ -112,6 +116,7 @@ public class fragment_configuracion extends Fragment implements LocationListener
         }
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -125,10 +130,23 @@ public class fragment_configuracion extends Fragment implements LocationListener
             startActivity(intent);
         });
 
+
+        ver = root.findViewById(R.id.btnconfiguracionver);
+        ver.setOnClickListener(View -> {
+            fragment_ubicacion ubi = new fragment_ubicacion();
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.content, ubi, "");
+            fragmentTransaction.setReorderingAllowed(true);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        });
+
+
         locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         if (checkLocationPermission(getActivity())){
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         }
+
         nuevo_correo = root.findViewById(R.id.nombre_cliente);/////
         nueva_contrasenia = root.findViewById(R.id.confirmarpassword_cliente);/////
 
@@ -188,11 +206,15 @@ public class fragment_configuracion extends Fragment implements LocationListener
                         }
                     });
         }
+
     }
+
 
     @Override
     public void onLocationChanged(Location location) {
         coordenadas.setText("Latitude:" + location.getLatitude() + ", Longitude:" + location.getLongitude());
+        lati = location.getLatitude();
+        longi = location.getLongitude();
     }
 
     @Override
@@ -209,6 +231,7 @@ public class fragment_configuracion extends Fragment implements LocationListener
     public void onStatusChanged(String provider, int status, Bundle extras) {
         Log.d("Latitude","status");
     }
+
 
 
     private void iniciarFireBase(){

@@ -4,8 +4,15 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -17,20 +24,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.hardbug.productos.model.LocationsUsers;
 import com.hardbug.productos.model.UserType;
+
+import org.checkerframework.common.returnsreceiver.qual.This;
 
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LocationListener {
 
     Button login;
     Button btnNuevoUsuario;
@@ -43,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDB;
     private FirebaseFirestore firestore;
+
+    static int LOCATION_PERMISSION_REQUEST = 15;
+    protected LocationManager locationManager;
+    protected LocationListener locationListener;
+    private Location location;
 
     @Override
     public void onStart() {
@@ -88,6 +106,11 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        locationManager = (LocationManager) MainActivity.this.getSystemService(Context.LOCATION_SERVICE);
+        if (checkLocationPermission(MainActivity.this)){
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        }
 
 
         login.setOnClickListener(view -> {
@@ -138,6 +161,8 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         if (MainActivity.UserSys != null) {
+                            LocationsUsers loca = new LocationsUsers(location.getLatitude(), location.getLongitude(), MainActivity.UserSys.getID(), MainActivity.UserSys.getEmail());
+                            nuevaLocacion(loca);
                             Intent intent = new Intent(MainActivity.this, fragment_principal.class);
                             startActivity(intent);
                         }
@@ -150,6 +175,58 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         firebaseDB = FirebaseDatabase.getInstance();
         firestore = FirebaseFirestore.getInstance();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        //coordenadas.setText("Latitude:" + location.getLatitude() + ", Longitude:" + location.getLongitude());
+        this.location = location;
+
+    }
+
+    private void nuevaLocacion(LocationsUsers locacion){
+        firestore.collection("LocationsUsers")
+                .add(locacion)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        //
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MainActivity.this, "Error en el registro",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        Log.d("Latitude","disable");
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+        Log.d("Latitude","enable");
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        Log.d("Latitude","status");
+    }
+
+    public static boolean checkLocationPermission(Activity activity){
+        if(ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED){
+
+            ActivityCompat.requestPermissions(activity, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_REQUEST);
+            return false;
+        }
+        return true;
     }
 
 }

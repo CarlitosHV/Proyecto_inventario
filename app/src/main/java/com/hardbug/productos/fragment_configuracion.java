@@ -130,7 +130,6 @@ public class fragment_configuracion extends Fragment implements LocationListener
             startActivity(intent);
         });
 
-
         ver = root.findViewById(R.id.btnconfiguracionver);
         ver.setOnClickListener(View -> {
             fragment_ubicacion ubi = new fragment_ubicacion();
@@ -140,7 +139,6 @@ public class fragment_configuracion extends Fragment implements LocationListener
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         });
-
 
         locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         if (checkLocationPermission(getActivity())){

@@ -2,6 +2,7 @@ package com.hardbug.productos;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
@@ -24,6 +25,10 @@ public class Presentacion extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         DynamicColors.applyToActivitiesIfAvailable(getApplication());
         setContentView(R.layout.activity_presentacion);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         imagenes.add(getResources().getDrawable(R.drawable.introuno));
         imagenes.add(getResources().getDrawable(R.drawable.introdos));

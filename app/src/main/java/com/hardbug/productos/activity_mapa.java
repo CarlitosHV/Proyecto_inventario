@@ -22,6 +22,10 @@ public class activity_mapa extends AppCompatActivity implements OnMapReadyCallba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapa2);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map2);
         mapFragment.getMapAsync(this);

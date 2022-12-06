@@ -53,14 +53,18 @@ public class UserTypeCAdapter extends BaseAdapter {
 
         UserType lista = listaProds.get(position);
         holderView.nombre_usuario.setText(lista.getName());
+        holderView.correo_usuario.setText(lista.getEmail());
         return convertView;
     }
 
     private static class HolderViewTU{
         private final TextView nombre_usuario;
+        private final TextView correo_usuario;
 
         public HolderViewTU(View view){
             nombre_usuario = view.findViewById(R.id.nombre_usuario);
+            correo_usuario = view.findViewById(R.id.correo_usuario);
+
         }
     }
 }

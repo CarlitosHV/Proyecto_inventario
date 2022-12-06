@@ -1,11 +1,13 @@
 package com.hardbug.productos.adapters;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,12 +17,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.hardbug.productos.R;
 import com.hardbug.productos.fragment_modificar;
 import com.hardbug.productos.model.Herramientas;
@@ -29,6 +35,9 @@ public class HerramientasAdapter extends FirestoreRecyclerAdapter<Herramientas, 
     private FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
     Activity activity;
     FragmentManager fm;
+    private FirebaseFirestore firestore;
+    private FirebaseStorage storage;
+    private StorageReference storageRef;
 
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
@@ -40,6 +49,10 @@ public class HerramientasAdapter extends FirestoreRecyclerAdapter<Herramientas, 
         super(options);
         this.activity = activity;
         this.fm = fm;
+        FirebaseApp.initializeApp(activity.getBaseContext());
+        firestore = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
+        storageRef = storage.getReference();
     }
 
     @Override
@@ -48,6 +61,16 @@ public class HerramientasAdapter extends FirestoreRecyclerAdapter<Herramientas, 
         final String id = documentSnapshot.getId();
         holder.nombre.setText(model.getCode());
         holder.descripcion.setText(model.getDescripcion());
+
+        storageRef.child(id+".jpg");
+
+        storageRef.child("/"+id+".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(activity.getBaseContext()).load(uri).into(holder.imagen);
+                holder.imagen.setRotation(90);
+            }
+        });
 
         holder.eliminar.setOnClickListener(view -> {
             deleteHerramienta(id);
@@ -90,12 +113,14 @@ public class HerramientasAdapter extends FirestoreRecyclerAdapter<Herramientas, 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView nombre, descripcion;
         Button eliminar, editar;
+        ImageView imagen;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             nombre = itemView.findViewById(R.id.nombre_prodcategoria);
             descripcion = itemView.findViewById(R.id.desc_prodcategoria);
             eliminar = itemView.findViewById(R.id.btneliminarcategoria);
             editar = itemView.findViewById(R.id.btneditarcategoria);
+            imagen = itemView.findViewById(R.id.imagenCardview);
         }
     }
 }

@@ -35,15 +35,15 @@
             />
 
         <Button
-            android:id="@+id/btncancelarcategoria"
+            android:id="@+id/btneliminarcategoria"
             style="@style/Widget.Material3.Button.Icon"
             android:layout_width="100dp"
             android:layout_height="45dp"
             android:layout_marginStart="265dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
-            android:text="@string/boton_cancelar"
+            android:text="@string/boton_quitar"
             android:textSize="7sp"
-            app:icon="@drawable/ic_cancela"/>
+            app:icon="@drawable/ic_delete"/>
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

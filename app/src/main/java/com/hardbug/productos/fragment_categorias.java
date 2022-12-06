@@ -80,15 +80,6 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
     private List<Herramientas> ListarHerramientas = new ArrayList<>();
 
 
-    Boolean banderah = false, banderac = false;
-    ArrayList<String> listaHerramientas = new ArrayList<String>();
-    ArrayList<ListaHerramientas> listah = new ArrayList<ListaHerramientas>();
-    ArrayList<ListaHerramientas> listac = new ArrayList<ListaHerramientas>();
-    ArrayList<ListaHerramientas> listageneral = new ArrayList<ListaHerramientas>();
-    ArrayList<Herramientas> herramientas = new ArrayList<>();
-    ArrayList<Herramientas> consumibles = new ArrayList<>();
-    ArrayList<Herramientas> generales = new ArrayList<>();
-
     public fragment_categorias() {
         // Required empty public constructor
     }
@@ -127,16 +118,14 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
         View root = inflater.inflate(R.layout.fragment_categorias, container, false);
         iniciarFireBase();
         listView = root.findViewById(R.id.custom_list_view_categorias);
-        btnconsumible = root.findViewById(R.id.btnConsumibles);
         buscador = root.findViewById(R.id.SearchViewHerramientas);
-        btnherramienta = root.findViewById(R.id.btnherramientas);
         listView = root.findViewById(R.id.custom_list_view_categorias);
         listView.setLayoutManager(new LinearLayoutManager(getContext()));
         CollectionReference query = firestore.collection("Herramientas");
         FirestoreRecyclerOptions<Herramientas> FireHerramientasFirestoreRecyclerOptions =
                 new FirestoreRecyclerOptions.Builder<Herramientas>().setQuery(query, Herramientas.class).build();
 
-        herramientasAdapter = new HerramientasAdapter(FireHerramientasFirestoreRecyclerOptions);
+        herramientasAdapter = new HerramientasAdapter(FireHerramientasFirestoreRecyclerOptions, getActivity());
         herramientasAdapter.notifyDataSetChanged();
         listView.setAdapter(herramientasAdapter);
 
@@ -146,28 +135,6 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
         toolbar.setNavigationOnClickListener(view -> {
             Intent intent = new Intent(getContext(), MainActivity.class);
             startActivity(intent);
-        });
-
-        btnherramienta.setOnClickListener(View -> {
-            listView.setLayoutManager(new LinearLayoutManager(getContext()));
-            CollectionReference herra = firestore.collection("Herramientas");
-            FirestoreRecyclerOptions<Herramientas> herraRecyclerOptions =
-                    new FirestoreRecyclerOptions.Builder<Herramientas>().setQuery(herra, Herramientas.class).build();
-
-            herramientasAdapter = new HerramientasAdapter(herraRecyclerOptions);
-            herramientasAdapter.notifyDataSetChanged();
-            listView.setAdapter(herramientasAdapter);
-        });
-
-        btnconsumible.setOnClickListener(View -> {
-            listView.setLayoutManager(new LinearLayoutManager(getContext()));
-            CollectionReference consu = firestore.collection("Consumibles");
-            FirestoreRecyclerOptions<Herramientas> consuRecyclerOptions =
-                    new FirestoreRecyclerOptions.Builder<Herramientas>().setQuery(consu, Herramientas.class).build();
-
-            herramientasAdapter = new HerramientasAdapter(consuRecyclerOptions);
-            herramientasAdapter.notifyDataSetChanged();
-            listView.setAdapter(herramientasAdapter);
         });
 
         add = root.findViewById(R.id.fabcategorias);
@@ -208,7 +175,7 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
                         setQuery(consulta.orderBy("code").
                                 startAt(s).endAt(s+"~"), Herramientas.class).build();
 
-        herramientasAdapter = new HerramientasAdapter(firestoreRecyclerOptions);
+        herramientasAdapter = new HerramientasAdapter(firestoreRecyclerOptions, getActivity());
         herramientasAdapter.startListening();
         listView.setAdapter(herramientasAdapter);
     }

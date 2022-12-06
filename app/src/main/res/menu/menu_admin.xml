@@ -14,18 +14,6 @@
         android:title="@string/usuarios" />
 
     <item
-        android:id="@+id/menuadminregistros"
-        android:icon="@drawable/ic_registros"
-        app:showAsAction="always"
-        android:title="@string/adminregistros"/>
-
-    <item
-        android:id="@+id/menuadminsolicitudes"
-        android:icon="@drawable/ic_solicitudes"
-        app:showAsAction="always"
-        android:title="@string/adminsolicitudes"/>
-
-    <item
         android:id="@+id/menuadminconfiguracion"
         android:icon="@drawable/ic_configuracion"
         app:showAsAction="always"

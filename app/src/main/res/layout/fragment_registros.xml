@@ -27,32 +27,6 @@
                     app:title="@string/registros"/>
             </com.google.android.material.appbar.AppBarLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/btnActivos"
-                    android:layout_width="75dp"
-                    android:layout_height="70dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginStart="25dp"
-                    android:backgroundTint="?attr/colorPrimaryVariant"
-                    android:background="@drawable/ic_activos" />
-
-                <ImageButton
-                    android:id="@+id/btnInactivos"
-                    android:layout_width="75dp"
-                    android:layout_height="70dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="25dp"
-                    android:layout_marginStart="150dp"
-                    android:background="@drawable/ic_inactivos"
-                    android:backgroundTint="?attr/colorPrimaryVariant" />
-
-            </LinearLayout>
-
             <ListView
                 android:id="@+id/custom_list_view_registros"
                 android:layout_width="match_parent"

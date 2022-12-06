@@ -24,8 +24,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="?attr/colorPrimaryVariant"
-                    app:title="@string/modificar"
-                    app:menu="@menu/menu3"/>
+                    app:title="@string/modificar" />
             </com.google.android.material.appbar.AppBarLayout>
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -55,22 +54,10 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/idprodmodificar"
                         android:layout_width="200dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="60dp"
                         android:inputType="number"
                         android:hint="@string/idprodbuscar"/>
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <Button
-                    android:id="@+id/btnmodificarbuscar"
-                    style="@style/Widget.Material3.Button.Icon"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_gravity="center"
-                    android:text="@string/botonbuscar"
-                    android:textSize="20sp"
-                    app:icon="@drawable/ic_find" />
 
             </LinearLayout>
 
@@ -81,14 +68,14 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginEnd="25dp"
                 app:endIconMode="clear_text"
-                app:startIconContentDescription="@string/nombreprod"
-                app:startIconDrawable="@drawable/ic_productoname">
+                app:startIconContentDescription="@string/Codigo"
+                app:startIconDrawable="@drawable/ic_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/nombreprodmodificar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/nombreprod"
+                    android:hint="@string/Codigo"
                     tools:layout_editor_absoluteX="16dp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -99,14 +86,14 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginEnd="25dp"
                 app:endIconMode="clear_text"
-                app:startIconContentDescription="@string/categoriaprod"
+                app:startIconContentDescription="@string/descherramienta"
                 app:startIconDrawable="@drawable/ic_catprod">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/categoriaprodmodificar"
+                    android:id="@+id/descrprodmodificar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/categoriaprod"
+                    android:hint="@string/descherramienta"
                     tools:layout_editor_absoluteX="16dp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -118,13 +105,13 @@
                 android:layout_marginEnd="25dp"
                 app:endIconMode="clear_text"
                 app:startIconContentDescription="@string/descripcionprod"
-                app:startIconDrawable="@drawable/ic_descriptionprod">
+                app:startIconDrawable="@drawable/ic_id">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/descriptionprodmodificar"
+                    android:id="@+id/cantidadprodmodificar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/descripcionprod"
+                    android:hint="@string/cantidadherramienta"
                     android:maxLines="5"
                     android:lines="1"
                     tools:layout_editor_absoluteX="16dp"/>
@@ -156,4 +143,15 @@
         </LinearLayout>
     </ScrollView>
 
+    <ProgressBar
+        android:id="@+id/loadingMH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="64dp"
+        android:layout_marginBottom="64dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
 </FrameLayout>

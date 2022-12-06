@@ -84,7 +84,8 @@
     <string name="configuracionCancelar"> Cancelar </string>
     //Strings para fragment de registros
     <string name="registrosNombre"> Nombre </string>
-    <string name="registrosFecha"> Fecha </string>
+    <string name="registrosDesc"> Descripción </string>
+    <string name="registrosCantidad"> Cantidad </string>
     <string name="recuperar">Recuperar</string>
     //Strings de fargment herramientas
     <string name="nombreherramienta">Código</string>

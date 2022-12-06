@@ -157,9 +157,9 @@ public class fragment_modificar extends Fragment {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         limpiar();
-                        SubirImagen(id_herramienta);
+                        //SubirImagen(id_herramienta);
                         loadingbar.setVisibility(View.GONE);
-                        Toast.makeText(getContext(), "Herramienta guardada con éxito",
+                        Toast.makeText(getContext(), "Herramienta editada con éxito",
                                 Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {

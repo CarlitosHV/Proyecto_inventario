@@ -45,8 +45,8 @@ public class fragment_principal extends AppCompatActivity {
             abrirfragments(cate);
         }else{
             bottomNavigationView.inflateMenu(R.menu.menu_usuario);
-            fragment_prestamos presta= new fragment_prestamos();
-            abrirfragments(presta);
+            fragment_categorias categ = new fragment_categorias();
+            abrirfragments(categ);
         }
 
 
@@ -68,23 +68,13 @@ public class fragment_principal extends AppCompatActivity {
                     fragment_usuarios usuarios = new fragment_usuarios();
                     abrirfragments(usuarios);
                     return true;
-                case R.id.menuadminregistros:
-                    fragment_registros registros = new fragment_registros();
-                    abrirfragments(registros);
-                    return true;
-                case R.id.menuadminsolicitudes:
-                    abrirfragments(sol);
-                    return true;
                     //Casos para el usuario
                 case R.id.menuuserprestamos:
-                    fragment_prestamos prestamos = new fragment_prestamos();
-                    abrirfragments(prestamos);
+                    fragment_categorias cate = new fragment_categorias();
+                    abrirfragments(cate);
                     return true;
                 case R.id.menuusuarioconfiguracion:
                     abrirfragments(config);
-                    return true;
-                case R.id.menuusuariosolicitudes:
-                    abrirfragments(sol);
                     return true;
             }
             return false;

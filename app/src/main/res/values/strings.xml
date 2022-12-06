@@ -34,6 +34,7 @@
     <string name="botonbuscar">Buscar</string>
     <string name="nombreprod">Nombre producto</string>
     <string name="categoriaprod">Categorías herramientas</string>
+    <string name="userherra">Herramientas</string>
     <string name="configuracion">Configuración</string>
     <string name="registros"> Registros </string>
     <string name="solicitudes"> Solicitudes </string>

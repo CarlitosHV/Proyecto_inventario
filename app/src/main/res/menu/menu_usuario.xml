@@ -5,13 +5,7 @@
         android:id="@+id/menuuserprestamos"
         app:showAsAction="always"
         android:icon="@drawable/ic_prestamos"
-        android:title="@string/usuarioprestamos"/>
-
-    <item
-        android:id="@+id/menuusuariosolicitudes"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_solicitudes"
-        android:title="@string/usuariosolicitudes" />
+        android:title="@string/userherra"/>
 
     <item
         android:id="@+id/menuusuarioconfiguracion"

@@ -31,7 +31,7 @@
             <ListView
                 android:id="@+id/custom_list_view_usuarios"
                 android:layout_width="match_parent"
-                android:layout_height="571dp"
+                android:layout_height="1071dp"
                 android:fillViewport="true" />
             
         </LinearLayout>

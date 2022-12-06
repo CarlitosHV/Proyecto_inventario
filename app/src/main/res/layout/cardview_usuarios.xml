@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="150dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="8dp"
     app:cardElevation="6dp"
@@ -33,6 +33,27 @@
             android:layout_marginBottom="15dp"
             android:textSize="7sp"
             app:icon="@drawable/ic_cancela"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nombre_usuarios"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="80dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:id="@+id/correo_usuario"
+            />
+
+        <Button
+            android:id="@+id/btnConvertir"
+            style="@style/Widget.Material3.Button.Icon"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="285dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="15dp"
+            android:textSize="7sp"
+            app:icon="@drawable/ic_edit"/>
 
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

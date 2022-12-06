@@ -38,7 +38,7 @@
                     android:layout_height="70dp"
                     android:layout_marginTop="25dp"
                     android:layout_marginStart="25dp"
-                    android:backgroundTint="@color/primaryDarkColor"
+                    android:backgroundTint="@color/seed"
                     android:background="@drawable/ic_activo" />
 
                 <ImageButton
@@ -49,7 +49,7 @@
                     android:layout_marginEnd="25dp"
                     android:layout_marginStart="150dp"
                     android:background="@drawable/ic_realizado"
-                    android:backgroundTint="@color/primaryDarkColor" />
+                    android:backgroundTint="@color/seed" />
 
             </LinearLayout>
 
@@ -64,7 +64,7 @@
                     android:layout_height="70dp"
                     android:layout_marginTop="25dp"
                     android:layout_marginStart="25dp"
-                    android:backgroundTint="@color/primaryDarkColor"
+                    android:backgroundTint="@color/seed"
                     android:background="@drawable/ic_pause" />
 
                 <ImageButton
@@ -75,7 +75,7 @@
                     android:layout_marginEnd="25dp"
                     android:layout_marginStart="150dp"
                     android:background="@drawable/ic_rechazado"
-                    android:backgroundTint="@color/primaryDarkColor" />
+                    android:backgroundTint="@color/seed" />
 
             </LinearLayout>
 

@@ -47,6 +47,10 @@ public class NuevoUsuario extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nuevo_usuario);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         iniciarFireBase();
 
         usuario = findViewById(R.id.campousuarioNU);

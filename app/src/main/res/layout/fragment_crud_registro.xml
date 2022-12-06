@@ -48,7 +48,7 @@
                 app:startIconDrawable="@drawable/ic_date">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/fecha_prestamo"
+                    android:id="@+id/fecha_prestamo_registro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/fechaprestamo"
@@ -79,22 +79,22 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <SearchView
+                android:id="@+id/SearchViewRegistros"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp">
+                android:layout_marginEnd="20dp"/>
 
-            </SearchView>
-
-            <ListView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/custom_list_view_herramientas"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_margin="20dp"
                 android:layout_marginTop="25dp"
                 android:fillViewport="true"
-                android:dividerHeight="2dp" />
+                android:dividerHeight="2dp"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"

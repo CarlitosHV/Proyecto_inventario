@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +18,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -26,9 +30,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.hardbug.productos.adapters.HerramientasAdapter;
+import com.hardbug.productos.adapters.RegistrosAdapter;
 import com.hardbug.productos.design.CustomAdapter;
 import com.hardbug.productos.design.CustomAdapterCategorias;
 import com.hardbug.productos.model.Consumibles;
@@ -67,7 +74,9 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
     private FirebaseFirestore firestore;
     ImageButton btnherramienta, btnconsumible;
 
-    ListView listView;
+    RecyclerView listView;
+    HerramientasAdapter herramientasAdapter;
+    private SearchView buscador;
     private List<Herramientas> ListarHerramientas = new ArrayList<>();
 
 
@@ -102,14 +111,6 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
         return fragment;
     }
 
-    private ArrayList<ListaHerramientas> seticonandname(){
-        herramientas = new ArrayList<>();
-        for (int i = 0; i < herramientas.size(); i++){
-            //cargarImagen(imagenes.get(i));
-            listah.add(new ListaHerramientas(herramientas.get(i).getCode()));
-        }
-        return listah;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -125,13 +126,20 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_categorias, container, false);
         iniciarFireBase();
-        LLamarHerramienta();
-        LLamarConsumible();
         listView = root.findViewById(R.id.custom_list_view_categorias);
         btnconsumible = root.findViewById(R.id.btnConsumibles);
+        buscador = root.findViewById(R.id.SearchViewHerramientas);
         btnherramienta = root.findViewById(R.id.btnherramientas);
-        CustomAdapterCategorias customAdapter = new CustomAdapterCategorias(getContext(), listageneral);
-        listView.setAdapter(customAdapter);
+        listView = root.findViewById(R.id.custom_list_view_categorias);
+        listView.setLayoutManager(new LinearLayoutManager(getContext()));
+        CollectionReference query = firestore.collection("Herramientas");
+        FirestoreRecyclerOptions<Herramientas> FireHerramientasFirestoreRecyclerOptions =
+                new FirestoreRecyclerOptions.Builder<Herramientas>().setQuery(query, Herramientas.class).build();
+
+        herramientasAdapter = new HerramientasAdapter(FireHerramientasFirestoreRecyclerOptions);
+        herramientasAdapter.notifyDataSetChanged();
+        listView.setAdapter(herramientasAdapter);
+
 
         toolbar = root.findViewById(R.id.toolbarcateprods);
         toolbar.setNavigationIcon(R.drawable.ic_back);
@@ -141,13 +149,25 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
         });
 
         btnherramienta.setOnClickListener(View -> {
-            CustomAdapterCategorias adapterHerramientas = new CustomAdapterCategorias(getContext(), listah);
-            listView.setAdapter(adapterHerramientas);
+            listView.setLayoutManager(new LinearLayoutManager(getContext()));
+            CollectionReference herra = firestore.collection("Herramientas");
+            FirestoreRecyclerOptions<Herramientas> herraRecyclerOptions =
+                    new FirestoreRecyclerOptions.Builder<Herramientas>().setQuery(herra, Herramientas.class).build();
+
+            herramientasAdapter = new HerramientasAdapter(herraRecyclerOptions);
+            herramientasAdapter.notifyDataSetChanged();
+            listView.setAdapter(herramientasAdapter);
         });
 
         btnconsumible.setOnClickListener(View -> {
-            CustomAdapterCategorias adapterConsumibles = new CustomAdapterCategorias(getContext(), listac);
-            listView.setAdapter(adapterConsumibles);
+            listView.setLayoutManager(new LinearLayoutManager(getContext()));
+            CollectionReference consu = firestore.collection("Consumibles");
+            FirestoreRecyclerOptions<Herramientas> consuRecyclerOptions =
+                    new FirestoreRecyclerOptions.Builder<Herramientas>().setQuery(consu, Herramientas.class).build();
+
+            herramientasAdapter = new HerramientasAdapter(consuRecyclerOptions);
+            herramientasAdapter.notifyDataSetChanged();
+            listView.setAdapter(herramientasAdapter);
         });
 
         add = root.findViewById(R.id.fabcategorias);
@@ -160,65 +180,49 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
             fragmentTransaction.commit();
         });
 
+        searcview();
+
         return root;
     }
 
-    public void LLamarHerramienta() {
-        firestore.collection("Herramientas")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Map<String, Object> obj = document.getData();
-                                Herramientas herramientasM = new Herramientas();
-                                herramientasM.setCode(obj.get("code").toString());
-                                herramientasM.setCount(Integer.parseInt(obj.get("count").toString()));
-                                herramientasM.setDescripcion(obj.get("descripcion").toString());
-                                //Date FECHA = new Date(obj.get("fecha")+"");
-                                //herramientasM.setFecha(FECHA);
-                                herramientas.add(herramientasM);
-                                generales.add(herramientasM);
-                            }
-                            for (int y = 0; y < herramientas.size(); y++){
-                                listah.add(new ListaHerramientas(herramientas.get(y).getCode()));
-                                listageneral.add(new ListaHerramientas(herramientas.get(y).getCode()));
-                            }
-                            CustomAdapterCategorias customAdapter = new CustomAdapterCategorias(getContext(), listageneral);
-                            listView.setAdapter(customAdapter);
-                        }
-                    }
-                });
+    private void searcview(){
+        buscador.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                textSearch(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                textSearch(s);
+                return false;
+            }
+        });
     }
 
-    public void LLamarConsumible() {
-        firestore.collection("Consumibles")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Map<String, Object> obj = document.getData();
-                                Herramientas herra = new Herramientas();
-                                herra.setCode(obj.get("code").toString());
-                                herra.setCount(Integer.parseInt(obj.get("count").toString()));
-                                herra.setDescripcion(obj.get("descripcion").toString());
-                                //Date FECHA = new Date(obj.get("fecha")+"");
-                                //herramientasM.setFecha(FECHA);
-                                consumibles.add(herra);
-                                generales.add(herra);
-                            }
-                            for (int y = 0; y < consumibles.size(); y++){
-                                listac.add(new ListaHerramientas(consumibles.get(y).getCode()));
-                                listageneral.add(new ListaHerramientas(consumibles.get(y).getCode()));
-                            }
-                            CustomAdapterCategorias customAdapter = new CustomAdapterCategorias(getContext(), listageneral);
-                            listView.setAdapter(customAdapter);
-                        }
-                    }
-                });
+    public void textSearch(String s){
+        CollectionReference consulta = firestore.collection("Herramientas");
+        FirestoreRecyclerOptions<Herramientas> firestoreRecyclerOptions =
+                new FirestoreRecyclerOptions.Builder<Herramientas>().
+                        setQuery(consulta.orderBy("code").
+                                startAt(s).endAt(s+"~"), Herramientas.class).build();
+
+        herramientasAdapter = new HerramientasAdapter(firestoreRecyclerOptions);
+        herramientasAdapter.startListening();
+        listView.setAdapter(herramientasAdapter);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        herramientasAdapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        herramientasAdapter.stopListening();
     }
 
     private void iniciarFireBase() {

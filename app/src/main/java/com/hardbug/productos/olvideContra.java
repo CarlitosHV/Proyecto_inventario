@@ -30,6 +30,10 @@ public class olvideContra extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_olvide_contra);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
 
         btnRecuperar = findViewById(R.id.btnrecuperar);
         emailEditText = findViewById(R.id.correoPss);

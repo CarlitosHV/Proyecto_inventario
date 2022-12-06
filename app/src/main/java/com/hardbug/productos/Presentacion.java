@@ -2,24 +2,33 @@ package com.hardbug.productos;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
 
+import com.google.android.material.color.DynamicColors;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Presentacion extends AppCompatActivity {
+public class Presentacion extends AppCompatActivity{
     private static final int TIME_OUT = 3000;
     private final ArrayList<Drawable> imagenes = new ArrayList<Drawable>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DynamicColors.applyToActivitiesIfAvailable(getApplication());
         setContentView(R.layout.activity_presentacion);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         imagenes.add(getResources().getDrawable(R.drawable.introuno));
         imagenes.add(getResources().getDrawable(R.drawable.introdos));

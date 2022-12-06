@@ -31,6 +31,10 @@ public class fragment_principal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_fragment);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setItemHorizontalTranslationEnabled(true);
 

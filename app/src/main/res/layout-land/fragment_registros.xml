@@ -38,7 +38,7 @@
                     android:layout_height="70dp"
                     android:layout_marginTop="25dp"
                     android:layout_marginStart="25dp"
-                    android:backgroundTint="@color/primaryDarkColor"
+                    android:backgroundTint="@color/seed"
                     android:background="@drawable/ic_activos" />
 
                 <ImageButton
@@ -49,7 +49,7 @@
                     android:layout_marginEnd="25dp"
                     android:layout_marginStart="350dp"
                     android:background="@drawable/ic_inactivos"
-                    android:backgroundTint="@color/primaryDarkColor" />
+                    android:backgroundTint="@color/seed" />
 
             </LinearLayout>
 

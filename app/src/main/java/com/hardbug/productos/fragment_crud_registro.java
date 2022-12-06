@@ -1,8 +1,10 @@
 package com.hardbug.productos;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -50,6 +53,7 @@ public class fragment_crud_registro extends Fragment {
     EditText fechap, fechad;
     String FechaPrestamo;
     String FechaDevolucion;
+    Context context;
 
 
     // TODO: Rename and change types of parameters
@@ -64,6 +68,7 @@ public class fragment_crud_registro extends Fragment {
     private RecyclerView listaHerramientas;
     private RegistrosAdapter registrosAdapter;
     private ListView listaConsumibles;
+    private SearchView buscador;
 
     private void iniciarFireBase(){
         FirebaseApp.initializeApp(getContext());
@@ -136,6 +141,7 @@ public class fragment_crud_registro extends Fragment {
         fechad.setText(FECHA_DEVOLUCION);
 
 
+        buscador = root.findViewById(R.id.SearchViewRegistros);
         toolbar = root.findViewById(R.id.toolbarcrearregistros);
         toolbar.setNavigationIcon(R.drawable.ic_back);
         toolbar.setNavigationOnClickListener(view -> {
@@ -147,9 +153,38 @@ public class fragment_crud_registro extends Fragment {
             fragmentTransaction.commit();
         });
 
+        searcview();
 
 
         return root;
+    }
+
+    private void searcview(){
+        buscador.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                textSearch(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                textSearch(s);
+                return false;
+            }
+        });
+    }
+
+    public void textSearch(String s){
+        CollectionReference consulta = firestore.collection("Herramientas");
+        FirestoreRecyclerOptions<Herramientas> firestoreRecyclerOptions =
+                new FirestoreRecyclerOptions.Builder<Herramientas>().
+                        setQuery(consulta.orderBy("code").
+                                startAt(s).endAt(s+"~"), Herramientas.class).build();
+
+        registrosAdapter = new RegistrosAdapter(firestoreRecyclerOptions);
+        registrosAdapter.startListening();
+        listaHerramientas.setAdapter(registrosAdapter);
     }
 
     @Override

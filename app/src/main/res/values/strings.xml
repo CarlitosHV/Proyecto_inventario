@@ -70,6 +70,7 @@
     <string name="nuevacuenta"> ¿No tiene una cuenta? </string>
     //Strings para el cardview de categorías
     <string name="nombre_producto"> Nombre </string>
+    <string name="desc_producto"> Desc </string>
     //Strings para menú de usuario
     <string name="usuarioprestamos"> Préstamos </string>
     <string name="usuariosolicitudes"> Solicitudes </string>

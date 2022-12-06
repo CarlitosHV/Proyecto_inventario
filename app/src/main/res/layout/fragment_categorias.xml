@@ -38,7 +38,7 @@
                     android:layout_height="70dp"
                     android:layout_marginTop="25dp"
                     android:layout_marginStart="25dp"
-                    android:backgroundTint="@color/seed"
+                    android:backgroundTint="?colorPrimaryVariant"
                     android:background="@drawable/ic_herramientas" />
 
                 <ImageButton
@@ -48,15 +48,15 @@
                     android:layout_marginTop="25dp"
                     android:layout_marginEnd="25dp"
                     android:layout_marginStart="150dp"
-                    android:backgroundTint="@color/seed"
+                    android:backgroundTint="?colorPrimaryVariant"
                     android:background="@drawable/ic_consumibles" />
 
             </LinearLayout>
-            <ListView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/custom_list_view_categorias"
                 android:layout_width="match_parent"
                 android:layout_height="595dp"
-                android:dividerHeight="1dp" />
+                android:dividerHeight="1dp"/>
         </LinearLayout>
     </ScrollView>
 

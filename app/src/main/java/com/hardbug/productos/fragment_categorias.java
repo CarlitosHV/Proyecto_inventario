@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,7 +68,7 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
     private FirebaseFirestore firestore;
     ImageButton btnherramienta, btnconsumible;
 
-    ListView listView;
+    RecyclerView listView;
     private List<Herramientas> ListarHerramientas = new ArrayList<>();
 
 
@@ -131,7 +132,7 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
         btnconsumible = root.findViewById(R.id.btnConsumibles);
         btnherramienta = root.findViewById(R.id.btnherramientas);
         CustomAdapterCategorias customAdapter = new CustomAdapterCategorias(getContext(), listageneral);
-        listView.setAdapter(customAdapter);
+        //listView.setAdapter(customAdapter);
 
         toolbar = root.findViewById(R.id.toolbarcateprods);
         toolbar.setNavigationIcon(R.drawable.ic_back);
@@ -142,12 +143,12 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
 
         btnherramienta.setOnClickListener(View -> {
             CustomAdapterCategorias adapterHerramientas = new CustomAdapterCategorias(getContext(), listah);
-            listView.setAdapter(adapterHerramientas);
+            //listView.setAdapter(adapterHerramientas);
         });
 
         btnconsumible.setOnClickListener(View -> {
             CustomAdapterCategorias adapterConsumibles = new CustomAdapterCategorias(getContext(), listac);
-            listView.setAdapter(adapterConsumibles);
+            //listView.setAdapter(adapterConsumibles);
         });
 
         add = root.findViewById(R.id.fabcategorias);
@@ -186,7 +187,7 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
                                 listageneral.add(new ListaHerramientas(herramientas.get(y).getCode()));
                             }
                             CustomAdapterCategorias customAdapter = new CustomAdapterCategorias(getContext(), listageneral);
-                            listView.setAdapter(customAdapter);
+                            //listView.setAdapter(customAdapter);
                         }
                     }
                 });
@@ -215,7 +216,7 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
                                 listageneral.add(new ListaHerramientas(consumibles.get(y).getCode()));
                             }
                             CustomAdapterCategorias customAdapter = new CustomAdapterCategorias(getContext(), listageneral);
-                            listView.setAdapter(customAdapter);
+                            //listView.setAdapter(customAdapter);
                         }
                     }
                 });

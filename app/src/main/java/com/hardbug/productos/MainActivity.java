@@ -168,8 +168,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                             }
                         }
                         if (MainActivity.UserSys != null) {
-                            LocationsUsers loca = new LocationsUsers(location.getLatitude(), location.getLongitude(), MainActivity.UserSys.getID(), MainActivity.UserSys.getEmail());
-                            nuevaLocacion(loca);
+                            //LocationsUsers loca = new LocationsUsers(location.getLatitude(), location.getLongitude(), MainActivity.UserSys.getID(), MainActivity.UserSys.getEmail());
+                            //nuevaLocacion(loca);
                             Intent intent = new Intent(MainActivity.this, fragment_principal.class);
                             startActivity(intent);
                         }

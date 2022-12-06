@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.hardbug.productos.adapters.HerramientasAdapter;
+import com.hardbug.productos.adapters.HerramientasUserAdapter;
 import com.hardbug.productos.model.Herramientas;
 
 /**
@@ -38,7 +39,7 @@ public class fragment_herramientas_user extends Fragment {
     ImageButton btnherramienta, btnconsumible;
 
     RecyclerView listView;
-    HerramientasAdapter herramientasAdapter;
+    HerramientasUserAdapter herramientasUserAdapter;
     private SearchView buscador;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -96,9 +97,9 @@ public class fragment_herramientas_user extends Fragment {
         FirestoreRecyclerOptions<Herramientas> FireHerramientasFirestoreRecyclerOptions =
                 new FirestoreRecyclerOptions.Builder<Herramientas>().setQuery(query, Herramientas.class).build();
 
-        herramientasAdapter = new HerramientasAdapter(FireHerramientasFirestoreRecyclerOptions, getActivity(), getActivity().getSupportFragmentManager());
-        herramientasAdapter.notifyDataSetChanged();
-        listView.setAdapter(herramientasAdapter);
+        herramientasUserAdapter = new HerramientasUserAdapter(FireHerramientasFirestoreRecyclerOptions);
+        herramientasUserAdapter.notifyDataSetChanged();
+        listView.setAdapter(herramientasUserAdapter);
 
 
         toolbar = root.findViewById(R.id.toolbarcateprodsuser);
@@ -135,21 +136,21 @@ public class fragment_herramientas_user extends Fragment {
                         setQuery(consulta.orderBy("code").
                                 startAt(s).endAt(s+"~"), Herramientas.class).build();
 
-        herramientasAdapter = new HerramientasAdapter(firestoreRecyclerOptions, getActivity(), getActivity().getSupportFragmentManager());
-        herramientasAdapter.startListening();
-        listView.setAdapter(herramientasAdapter);
+        herramientasUserAdapter = new HerramientasUserAdapter(firestoreRecyclerOptions);
+        herramientasUserAdapter.startListening();
+        listView.setAdapter(herramientasUserAdapter);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        herramientasAdapter.startListening();
+        herramientasUserAdapter.startListening();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        herramientasAdapter.stopListening();
+        herramientasUserAdapter.stopListening();
     }
 
     private void iniciarFireBase() {

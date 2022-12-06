@@ -45,8 +45,8 @@ public class fragment_principal extends AppCompatActivity {
             abrirfragments(cate);
         }else{
             bottomNavigationView.inflateMenu(R.menu.menu_usuario);
-            fragment_categorias categ = new fragment_categorias();
-            abrirfragments(categ);
+            fragment_herramientas_user herra = new fragment_herramientas_user();
+            abrirfragments(herra);
         }
 
 
@@ -70,8 +70,8 @@ public class fragment_principal extends AppCompatActivity {
                     return true;
                     //Casos para el usuario
                 case R.id.menuuserprestamos:
-                    fragment_categorias cate = new fragment_categorias();
-                    abrirfragments(cate);
+                    fragment_herramientas_user user = new fragment_herramientas_user();
+                    abrirfragments(user);
                     return true;
                 case R.id.menuusuarioconfiguracion:
                     abrirfragments(config);

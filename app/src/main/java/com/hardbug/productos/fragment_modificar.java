@@ -3,15 +3,14 @@ package com.hardbug.productos;
 import static android.app.Activity.RESULT_OK;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.appcompat.widget.Toolbar;
+import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -20,20 +19,31 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.hardbug.productos.bd.SQLITE;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.hardbug.productos.model.Herramientas;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,13 +52,18 @@ import java.io.IOException;
  */
 public class fragment_modificar extends Fragment {
 
-    EditText ID, nombre, categoria, descripcion;
+    EditText ID, nombre, categoria, descripcion, cantidad;
     ImageView foto;
     Button actualizar, buscar, tomarfoto;
     String img = "";
     String rutaImagen;
-    SQLITE sqlite;
+    String id_herramienta;
+    ProgressBar loadingbar;
     MaterialToolbar materialToolbar;
+    private FirebaseFirestore firestore;
+    private FirebaseStorage storage;
+    private StorageReference storageRef;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -92,87 +107,39 @@ public class fragment_modificar extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_modificar, container, false);
         Botones(root);
-        sqlite = new SQLITE(getContext());
+
+        if (getArguments() != null){
+            id_herramienta = getArguments().getString("id_herramienta");
+            ID.setText(id_herramienta);
+            ID.setEnabled(false);
+        }
 
         materialToolbar = root.findViewById(R.id.toolbarmodificar);
         materialToolbar.setNavigationIcon(R.drawable.ic_back);
         materialToolbar.setNavigationOnClickListener(view -> {
-            Intent intent = new Intent(getContext(), MainActivity.class);
-            startActivity(intent);
+            fragment_categorias cat = new fragment_categorias();
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.content, cat, "");
+            fragmentTransaction.setReorderingAllowed(true);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         });
-
-        materialToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.barmostrarcreditos:
-                        new AlertDialog.Builder(getContext()).setTitle("Acerca de").setMessage("" + "Carlos Alberto Hernández Velázquez Catador de chichis \n"+
-                                "Gerardo Pastrana Gómez \n" + "Profesora: Rocío Elizabeth Pulido Alba\n" + "Programación Android :D \n" + "Aplicación Material Design + SQLite\n" + "Versión 2.1").setPositiveButton("Aceptar", null).show();
-                        return true;
-
-                    case R.id.bartopfind:
-                        buscar Buscar = new buscar();
-                        abrirfragments(Buscar);
-                        return true;
-                    case R.id.bartopeliminar:
-                        fragment_eliminar eliminar = new fragment_eliminar();
-                        abrirfragments(eliminar);
-                        return true;
-
-                    default:
-                        return false;
-                }
-            }
-        });
-
-        buscar.setOnClickListener(View -> {
-            if (ID.getText().toString().isEmpty()) {
-                Toast.makeText(getContext(), "Ingrese el ID del producto", Toast.LENGTH_SHORT).show();
-            } else {
-                sqlite.abrir();
-                int idp = Integer.parseInt(ID.getText().toString());
-                if (sqlite.getValor(idp).getCount() == 1) {
-                    Cursor cursor = sqlite.getValor(idp);
-                    if (cursor.moveToFirst()) {
-                        do {
-                            nombre.setText(cursor.getString(1));
-                            categoria.setText(cursor.getString(2));
-                            descripcion.setText(cursor.getString(3));
-                            img = cursor.getString(5);
-                            Bitmap imgBitMap = BitmapFactory.decodeFile(img);
-                            foto.setImageBitmap(imgBitMap);
-                            habilitarbotones();
-                        } while (cursor.moveToNext());
-                    }
-                } else {
-                    Toast.makeText(getContext(), "Error al cargar la información", Toast.LENGTH_SHORT).show();
-                }
-                sqlite.cerrar();
-            }
-        });
-
 
         actualizar.setOnClickListener(view -> {
-            if (nombre.getText().equals("") || ID.getText().equals("") || categoria.getText().equals("")
-                    || descripcion.getText().equals("") || img.equals("")) {
-                Toast.makeText(getContext(), "Campos vacíos o imagen del producto no cargada", Toast.LENGTH_SHORT).show();
-            } else {
-                int id = Integer.parseInt(ID.getText().toString());
-                String Nombre = nombre.getText().toString();
-                String Categoria = categoria.getText().toString();
-                String Descripcion = descripcion.getText().toString();
-                boolean estatus = true;
-                sqlite.abrir();
-                String actualizacion = sqlite.updateRegistroProducto(id, Nombre, Categoria, Descripcion, estatus, img);
-                if (actualizacion.contentEquals("Producto actualizado con éxito")) {
-                    limpiar();
-                    Toast.makeText(getContext(), "Información guardada con éxito", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), "Error al guardar la información", Toast.LENGTH_SHORT).show();
-                }
-                sqlite.cerrar();
-            }
+            Map <String, Object> map = new HashMap<>();
+            String code = nombre.getText().toString().trim();
+            map.put("code", code);
+            String description = descripcion.getText().toString().trim();
+            map.put("descripcion", description);
+            int count = Integer.parseInt(cantidad.getText().toString().trim());
+            map.put("count", count);
+            Date fecha =  new Date();
+            map.put("fecha", fecha);
+
+            Herramientas herramientaNueva = new Herramientas(code, description, fecha, count);
+            updateHerramienta(herramientaNueva,"Herramientas", map);
         });
+
 
 
         tomarfoto.setOnClickListener(View -> {
@@ -181,40 +148,79 @@ public class fragment_modificar extends Fragment {
         return root;
     }
 
+    private void updateHerramienta(Herramientas herramientaNueva, String collection, Map map){
+        iniciarFireBase();
+        loadingbar.setVisibility(View.VISIBLE);
+        firestore.collection(collection)
+                .document(id_herramienta).update(map)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        limpiar();
+                        SubirImagen(id_herramienta);
+                        loadingbar.setVisibility(View.GONE);
+                        Toast.makeText(getContext(), "Herramienta guardada con éxito",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(), "Error en el registro",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void SubirImagen(String id){
+        StorageReference imagensr = storageRef.child(id+".jpg");
+        StorageReference ImagesRefsr = storageRef.child("images/"+id+".jpg");
+
+        foto.setDrawingCacheEnabled(true);
+        foto.buildDrawingCache();
+        Bitmap bitmap = ((BitmapDrawable) foto.getDrawable()).getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = imagensr.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                // ...
+            }
+        });
+
+
+    }
+
+
     public void Botones(View root) {
         ID = root.findViewById(R.id.idprodmodificar);
         nombre = root.findViewById(R.id.nombreprodmodificar);
-        categoria = root.findViewById(R.id.categoriaprodmodificar);
-        descripcion = root.findViewById(R.id.descriptionprodmodificar);
+        descripcion = root.findViewById(R.id.descrprodmodificar);
         actualizar = root.findViewById(R.id.btnguardarmodificar);
         foto = root.findViewById(R.id.ivFotoprodmodificar);
-        buscar = root.findViewById(R.id.btnmodificarbuscar);
         tomarfoto = root.findViewById(R.id.btntomarfotomodificar);
-        nombre.setEnabled(false);
-        tomarfoto.setEnabled(false);
-        categoria.setEnabled(false);
-        descripcion.setEnabled(false);
+        cantidad = root.findViewById(R.id.cantidadprodmodificar);
+        loadingbar = root.findViewById(R.id.loadingMH);
     }
 
-    public void habilitarbotones(){
-        nombre.setEnabled(true);
-        tomarfoto.setEnabled(true);
-        categoria.setEnabled(true);
-        descripcion.setEnabled(true);
-    }
+
 
     public void limpiar(){
         ID.setText("");
         nombre.setText("");
-        categoria.setText("");
         descripcion.setText("");
+        cantidad.setText("");
         img = "";
         Bitmap imgBitMap = BitmapFactory.decodeFile(img);
         foto.setImageBitmap(imgBitMap);
-        nombre.setEnabled(false);
-        tomarfoto.setEnabled(false);
-        categoria.setEnabled(false);
-        descripcion.setEnabled(false);
     }
 
     private void abrirCamara() {
@@ -262,6 +268,13 @@ public class fragment_modificar extends Fragment {
         fragmentTransaction.setReorderingAllowed(true);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    private void iniciarFireBase(){
+        FirebaseApp.initializeApp(getContext());
+        firestore = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
+        storageRef = storage.getReference();
     }
 
 }

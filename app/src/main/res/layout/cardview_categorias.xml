@@ -35,11 +35,24 @@
             />
 
         <Button
+            android:id="@+id/btneditarcategoria"
+            style="@style/Widget.Material3.Button.Icon"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="150dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:text="@string/boton_editar"
+            android:backgroundTint="?colorPrimaryVariant"
+            android:textSize="7sp"
+            app:icon="@drawable/ic_edit"/>
+
+        <Button
             android:id="@+id/btneliminarcategoria"
             style="@style/Widget.Material3.Button.Icon"
-            android:layout_width="100dp"
+            android:layout_width="80dp"
             android:layout_height="45dp"
-            android:layout_marginStart="265dp"
+            android:layout_marginStart="260dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:text="@string/boton_quitar"

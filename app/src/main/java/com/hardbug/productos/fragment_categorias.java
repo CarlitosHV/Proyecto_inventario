@@ -125,7 +125,7 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
         FirestoreRecyclerOptions<Herramientas> FireHerramientasFirestoreRecyclerOptions =
                 new FirestoreRecyclerOptions.Builder<Herramientas>().setQuery(query, Herramientas.class).build();
 
-        herramientasAdapter = new HerramientasAdapter(FireHerramientasFirestoreRecyclerOptions, getActivity());
+        herramientasAdapter = new HerramientasAdapter(FireHerramientasFirestoreRecyclerOptions, getActivity(), getActivity().getSupportFragmentManager());
         herramientasAdapter.notifyDataSetChanged();
         listView.setAdapter(herramientasAdapter);
 
@@ -175,7 +175,7 @@ public class fragment_categorias extends Fragment implements AdapterView.OnItemC
                         setQuery(consulta.orderBy("code").
                                 startAt(s).endAt(s+"~"), Herramientas.class).build();
 
-        herramientasAdapter = new HerramientasAdapter(firestoreRecyclerOptions, getActivity());
+        herramientasAdapter = new HerramientasAdapter(firestoreRecyclerOptions, getActivity(), getActivity().getSupportFragmentManager());
         herramientasAdapter.startListening();
         listView.setAdapter(herramientasAdapter);
     }

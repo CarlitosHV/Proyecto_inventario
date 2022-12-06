@@ -73,7 +73,6 @@ public class fragment_herramientas extends Fragment {
     public String img;
     public String rutaImagen;
     ImageView imagen;
-    CheckBox consumible, herramienta;
 
     com.google.android.material.textfield.TextInputEditText nombre_herramienta;
     com.google.android.material.textfield.TextInputEditText descherramienta;
@@ -132,8 +131,6 @@ public class fragment_herramientas extends Fragment {
         });
 
         loadingProgressBar = root.findViewById(R.id.loadingCH);
-        consumible = root.findViewById(R.id.checkconsumible);
-        herramienta = root.findViewById(R.id.checkherramienta);
         nombre_herramienta = root.findViewById(R.id.nombre_herramienta);
         descherramienta = root.findViewById(R.id.descherramienta);
         cantidad_herramienta = root.findViewById(R.id.cantidad_herramienta);
@@ -141,19 +138,6 @@ public class fragment_herramientas extends Fragment {
         imagen = root.findViewById(R.id.ivFotoherra);
         tomarfoto = root.findViewById(R.id.btntomarfotoherramienta);
 
-        herramienta.setChecked(true);
-
-        consumible.setOnClickListener(View -> {
-            if (consumible.isChecked()){
-                herramienta.setChecked(false);
-            }
-        });
-
-        herramienta.setOnClickListener(View -> {
-            if (herramienta.isChecked()){
-                consumible.setChecked(false);
-            }
-        });
 
         tomarfoto.setOnClickListener(View -> {
             abrirCamara();
@@ -177,12 +161,7 @@ public class fragment_herramientas extends Fragment {
                 count = Integer.parseInt(cantidad_herramienta.getText().toString());
 
                 Herramientas herramientaNueva = new Herramientas(code, description, fecha, count);
-
-                if(herramienta.isChecked()){
-                    nuevaHerramienta(herramientaNueva,"Herramientas");
-                }else{
-                    nuevaHerramienta(herramientaNueva,"Consumibles");
-                }
+                nuevaHerramienta(herramientaNueva,"Herramientas");
 
             }
         });
@@ -206,6 +185,8 @@ public class fragment_herramientas extends Fragment {
                         SubirImagen(documentReference.getId());
                         imagen.setImageBitmap(null);
                         loadingProgressBar.setVisibility(View.GONE);
+                        Toast.makeText(getContext(), "Herramienta guardada con éxito",
+                                Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -280,27 +261,6 @@ public class fragment_herramientas extends Fragment {
         rutaImagen = imagen.getAbsolutePath();
         img = rutaImagen;
         return imagen;
-    }
-
-    private void nuevoConsumibe(Herramientas consumibleNuevo){
-        loadingProgressBar.setVisibility(View.VISIBLE);
-        firestore.collection("Herramientas")
-                .add(consumibleNuevo)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        nombre_herramienta.setText("");
-                        descherramienta.setText("");
-                        cantidad_herramienta.setText("");
-                        loadingProgressBar.setVisibility(View.GONE);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), "Error en el registro",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
     }
 
     private void iniciarFireBase(){

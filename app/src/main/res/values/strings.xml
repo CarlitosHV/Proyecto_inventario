@@ -17,7 +17,7 @@
     //Fragments
     <string name="scroll">Scroll</string>
     <string name="anadir">Agregar producto</string>
-    <string name="modificar">Modificar producto</string>
+    <string name="modificar">Modificar herramienta</string>
     <string name="consultar">Consultar producto</string>
     <string name="edicion_usuario"> Editar usuario </string>
     <string name="eliminar">Eliminar</string>
@@ -66,6 +66,7 @@
     <string name="boton_confirmar"> Confirmar </string>
     <string name="boton_cancelar"> Cancelar </string>
     <string name="boton_quitar"> Quitar </string>
+    <string name="boton_editar"> Editar </string>
     <string name="boton_olvidepass"> ¿Olvidaste tu contraseña? </string>
     <string name="nuevacuenta"> ¿No tiene una cuenta? </string>
     //Strings para el cardview de categorías

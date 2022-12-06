@@ -57,7 +57,7 @@ public class fragment_editar_usuario extends Fragment {
     ProgressBar loadingProgressBar;
     CheckBox admin;
     Boolean Admin;
-    private com.google.android.material.textfield.TextInputEditText usuario, contrasenia, contrasenia2;
+    private com.google.android.material.textfield.TextInputEditText usuario, contrasenia, contrasenia2, name;
 
 
 
@@ -121,6 +121,7 @@ public class fragment_editar_usuario extends Fragment {
         contrasenia2 = root.findViewById(R.id.confirmarcontraseniaeditar);
         admin = root.findViewById(R.id.checkadmin);
         btnguardaruser = root.findViewById(R.id.btnmodificaruser);
+        name = root.findViewById(R.id.usuarioEDI);
 
         Admin = admin.isChecked();
 
@@ -147,7 +148,7 @@ public class fragment_editar_usuario extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            UserType usuarioNuevo = new UserType(usuario.getText().toString(), Admin, user.getUid(), usuario.getText().toString());
+                            UserType usuarioNuevo = new UserType(usuario.getText().toString(), Admin, user.getUid(), name.getText().toString());
                             nuevoUsuario(usuarioNuevo);
                             Toast.makeText(getContext(), "Registro Exitoso",
                                     Toast.LENGTH_SHORT).show();
